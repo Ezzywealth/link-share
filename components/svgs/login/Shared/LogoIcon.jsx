@@ -1,8 +1,8 @@
 import React from "react";
 
-const LogoIcon = () => {
+const LogoIcon = ({logoWidth='41', logoHeight='40'}) => {
   return (
-		<svg xmlns='http://www.w3.org/2000/svg' width='41' height='40' viewBox='0 0 41 40' fill='none'>
+		<svg xmlns='http://www.w3.org/2000/svg' width={logoWidth} height={logoHeight} viewBox='0 0 41 40' fill='none'>
 			<path
 				fill-rule='evenodd'
 				clip-rule='evenodd'

@@ -18,6 +18,8 @@ module.exports = {
 				'primary-white-light': '#fff',
 				'primary-text-color-light': '#737373',
 				'dark-grey-color-light': '#333',
+				'dark-border-color': '#737373',
+				'profile-image-bg': '#eeeeee',
 				'primary-border-color': '#442C2E',
 				'primary-button-bg': '#633CFF',
 				'transparent': 'transparent',

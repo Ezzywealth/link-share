@@ -8,7 +8,7 @@ import Logo from '../components/Logo';
 const LoginScreen = () => {
 	return (
 		<AuthLayout>
-			<main className='bg-primary-bg-light flex justify-center items-center min-h-screen text-primary-text-color-light'>
+			<main className=' flex justify-center items-center min-h-screen text-primary-text-color-light'>
 				<section className='w-[420px] space-y-7'>
 					<Logo />
 					<div className='bg-primary-white-light p-8 rounded shadow-md w-[420px]'>

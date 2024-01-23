@@ -10,7 +10,7 @@ import Logo from '../components/Logo';
 const RegisterScreen = () => {
 	return (
 		<AuthLayout>
-			<main className='bg-primary-bg-light flex justify-center items-center min-h-screen text-primary-text-color-light'>
+			<main className=' flex justify-center items-center min-h-screen text-primary-text-color-light'>
 				<section className='w-[420px] space-y-5'>
 					<Logo />
 					<div className='bg-primary-white-light px-8 py-4 rounded shadow-md w-[420px]'>
@@ -51,7 +51,7 @@ const RegisterScreen = () => {
 						<p className='mt-6 text-sm text-center'>
 							Already have an account?{' '}
 							<Link href='/login' className='text-primary-button-bg hover:underline'>
-								Log In
+								Login
 							</Link>
 						</p>
 					</div>
