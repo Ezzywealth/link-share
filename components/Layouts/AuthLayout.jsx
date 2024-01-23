@@ -7,11 +7,13 @@ const AuthLayout = ({ children }) => {
 	const router = useRouter();
 
 	useEffect(() => {
-		console.log(session);
+		console.log(router.pathname);
 		if (session?.email) {
 			router.push('/dashboard');
 		} else {
-			router.push('/login');
+			if (router.pathname !== '/register') {
+				router.push('/login');
+			}
 		}
 	}, [session]);
 
