@@ -24,6 +24,7 @@ module.exports = {
 				'primary-button-bg': '#633CFF',
 				'transparent': 'transparent',
 				'none': 'none',
+				'active-nav-bg': '#efebff',
 			},
 		},
 	},

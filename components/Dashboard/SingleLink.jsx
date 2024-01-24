@@ -5,10 +5,10 @@ import Link from 'next/link';
 
 const SingleLink = ({ link }) => {
 	const [linkLabel, setLinkLabel] = useState(null);
-	console.log(link);
+
 	useEffect(() => {
+		// a useEffect hook to set the link label from the displayLinks array in the utils folder
 		const label = displayLinks.find((item) => item?.value?.toLowerCase() === link?.name?.toLowerCase());
-		console.log(label);
 		setLinkLabel(label);
 	}, [link]);
 
