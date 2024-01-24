@@ -1,5 +1,5 @@
 import React from 'react';
-import GetStartedIcon from '../svgs/Dashboard/GetStartedIcon';
+import GetStartedIcon from '../../svgs/Dashboard/GetStartedIcon';
 
 const GetStarted = () => {
 	return (

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { IoMenuSharp } from 'react-icons/io5';
 import Select from 'react-select';
-import LinkIcon from '../svgs/Nav/LinkIcon';
-import useDashboardHook from './hooks/useDashboardHook';
-import { linksOptions } from '../../utils/linksData';
+import LinkIcon from '../../svgs/Nav/LinkIcon';
+import useDashboardHook from '../hooks/useDashboardHook';
+import { linksOptions } from '../../../utils/linksData';
 
 const LinkCard = ({ i, link }) => {
 	const [selectedOption, setSelectedOption] = useState(null);

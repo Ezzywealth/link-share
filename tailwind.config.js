@@ -25,6 +25,8 @@ module.exports = {
 				'transparent': 'transparent',
 				'none': 'none',
 				'active-nav-bg': '#efebff',
+				'light-Purple': '#EFEBFF',
+				'light-Grey': '#FAFAFA',
 			},
 		},
 	},

@@ -2378,6 +2378,11 @@ react-icons@^5.0.1:
   resolved "https://registry.npmjs.org/react-icons/-/react-icons-5.0.1.tgz"
   integrity sha512-WqLZJ4bLzlhmsvme6iFdgO8gfZP17rfjYEJ2m9RsZjZ+cc4k1hTzknEz63YS1MeT50kVzoa1Nz36f4BEx+Wigw==
 
+react-image-upload@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/react-image-upload/-/react-image-upload-3.0.1.tgz"
+  integrity sha512-vAR8EZuEK57jDltHh1s6rRORKrY4D2l25fdmwkZwA7SVHm/XJeakUBaUNHh/l0F1MEuGDwLQntsoO50kbL3LZg==
+
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"

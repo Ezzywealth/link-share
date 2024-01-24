@@ -1,7 +1,7 @@
 import React from 'react';
 import AddLinks from './AddLinks';
 import GetStarted from './GetStarted';
-import useDashboardHook from './hooks/useDashboardHook';
+import useDashboardHook from '../hooks/useDashboardHook';
 
 const LinksPage = () => {
 	const { noOfLinks, handleAddNewLink, activateSaveBtn, newLinks, handleSaveLinks } = useDashboardHook();

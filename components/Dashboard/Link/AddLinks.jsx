@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useDashboardHook from './hooks/useDashboardHook';
+import useDashboardHook from '../hooks/useDashboardHook';
 import LinkCard from './LinkCard';
 
 const AddLinks = () => {

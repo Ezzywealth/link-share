@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import ArrowRightIcon from '../svgs/Dashboard/ArrowRightIcon';
-import { displayLinks } from '../../utils/linksData';
+import ArrowRightIcon from '../../svgs/Dashboard/ArrowRightIcon';
+import { displayLinks } from '../../../utils/linksData';
 import Link from 'next/link';
 
 const SingleLink = ({ link }) => {

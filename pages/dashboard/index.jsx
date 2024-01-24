@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import DashboardLayout from '../../components/Layouts/DashboardLayout';
-import Phonebg from '../../components/svgs/Dashboard/Phonebg';
-import PhoneContent from '../../components/Dashboard/PhoneContent';
-import useDashboardHook from '../../components/Dashboard/hooks/useDashboardHook';
-import { useRouter } from 'next/router';
-import LinksPage from '../../components/Dashboard/LinksPage';
 import { useSearchParams } from 'next/navigation';
-import ProfilePage from '../../components/Dashboard/ProfilePage';
+import LinksPage from '../../components/Dashboard/Link/LinksPage';
+import ProfilePage from '../../components/Dashboard/Profile/ProfilePage';
+import PhoneContent from '../../components/Dashboard/PhoneBackground/PhoneContent';
+import Phonebg from '../../components/svgs/Dashboard/Phonebg';
 
 const Dashboard = () => {
 	const params = useSearchParams();
