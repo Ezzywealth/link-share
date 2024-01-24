@@ -13,11 +13,11 @@ const Nav = () => {
 			<ul className='flex items-center gap-4'>
 				<li className='flex items-center gap-1'>
 					<LinkIcon />
-					<Link href='/links'>Links</Link>
+					<Link href='/dashboard?page=links'>Links</Link>
 				</li>
 				<li className='flex items-center gap-1'>
 					<ProfileIcon />
-					<Link href='/settings'>Profile Details</Link>
+					<Link href='/dashboard?page=profile'>Profile Details</Link>
 				</li>
 			</ul>
 			<section>
