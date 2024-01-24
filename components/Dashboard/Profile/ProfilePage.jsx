@@ -1,5 +1,6 @@
 import React from 'react';
 import ImgUploader from './ImageUploader';
+import DetailsComponent from './DetailsComponent';
 
 const ProfilePage = () => {
 	return (
@@ -19,6 +20,13 @@ const ProfilePage = () => {
 					</p>
 				</div>
 			</article>
+			<article>
+				<DetailsComponent />
+			</article>
+			<hr />
+			<section className='flex justify-end pt-4'>
+				<button className={`bg-primary-button-bg text-white px-6 py-2 rounded-md ${false ? 'opacity-100' : 'opacity-25'}`}>Save</button>
+			</section>
 		</section>
 	);
 };

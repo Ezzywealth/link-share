@@ -27,6 +27,7 @@ module.exports = {
 				'active-nav-bg': '#efebff',
 				'light-Purple': '#EFEBFF',
 				'light-Grey': '#FAFAFA',
+				'purple': '#633CFF',
 			},
 		},
 	},
