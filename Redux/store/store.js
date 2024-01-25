@@ -7,6 +7,13 @@ const store = configureStore({
 		auth: AuthReducer,
 		helper: helperReducer,
 	},
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({
+			serializableCheck: {
+				// Ignore these action types
+				ignoredActions: ['auth/register', 'auth/login'],
+			},
+		}),
 });
 
 export default store;
