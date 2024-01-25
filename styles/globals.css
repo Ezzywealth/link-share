@@ -33,3 +33,38 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
 	-webkit-box-shadow: 0 0 0 30px white inset !important;
 }
+
+/* For WebKit browsers (Chrome, Safari) */
+/* You can customize the colors, width, etc. */
+::-webkit-scrollbar {
+	width: 5px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+	background-color: #f1f1f1; /* Color of the track */
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #b9b9b9; /* Color of the thumb */
+	border-radius: 6px; /* Rounded corners of the thumb */
+}
+
+/* For Firefox */
+/* You can customize the colors, width, etc. */
+/* Note: Firefox currently doesn't support styling the scrollbar thumb separately */
+.scrollbar {
+	scrollbar-width: thin; /* "auto" or "thin" */
+}
+
+.scrollbar-track {
+	background-color: #f1f1f1; /* Color of the track */
+}
+
+/* You can use a pseudo-element to style the scrollbar thumb in Firefox */
+.scrollbar-thumb::before {
+	content: '';
+	display: block;
+	background-color: #888; /* Color of the thumb */
+	border-radius: 6px; /* Rounded corners of the thumb */
+	height: 100%; /* Full height of the thumb */
+}
