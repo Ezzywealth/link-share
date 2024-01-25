@@ -24,9 +24,7 @@ const RegisterScreen = () => {
 	} = useForm();
 
 	const handleRegister = async (data) => {
-		console.log(data);
 		dispatch(registerUser(data));
-		// router.push('/dashboard?page=links');
 	};
 
 	return (

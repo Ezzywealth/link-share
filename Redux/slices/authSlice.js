@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { signIn } from 'next-auth/react';
+import { toast } from 'react-toastify';
 
 const initialState = {
 	isAuth: false,
@@ -7,18 +8,29 @@ const initialState = {
 	isLoading: false,
 	registrationLoading: false,
 	registrationError: '',
+	loginLoading: false,
+	loginError: '',
 };
 
-export const loginUser = createAsyncThunk('auth/login', async (payload, thunkAPI) => {
-	const response = await signIn('credentials', {
-		redirect: false,
-		email: payload.email,
-		password: payload.password,
-	});
-	console.log(response);
-	const data = await response.json();
-	console.log(data);
-	return data;
+export const loginUser = createAsyncThunk('auth/login', async (payload, thunkApi) => {
+	try {
+		const response = await signIn('credentials', {
+			redirect: false,
+			email: payload.email,
+			password: payload.password,
+		});
+		console.log(response);
+		if (response.error) {
+			// Use `rejectWithValue` to reject the promise with a specific value
+			return thunkApi.rejectWithValue(response.error);
+		} else {
+			// Return the successful response
+			return response;
+		}
+	} catch (error) {
+		// Handle other errors
+		throw error; // Re-throw the error to be caught by the rejectWithValue in case of non-HTTP errors
+	}
 });
 
 export const registerUser = createAsyncThunk('auth/register', async (user) => {
@@ -39,30 +51,33 @@ export const authSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder.addCase(loginUser.pending, (state) => {
-			state.isLoading = true;
+			state.loginLoading = true;
 		});
 		builder.addCase(loginUser.fulfilled, (state, action) => {
-			state.isLoading = false;
+			state.loginLoading = false;
 			state.isAuth = true;
+			toast.success('Login successful');
 			state.user = action.payload;
+			window.location.href = '/dashboard?page=links';
 		});
 		builder.addCase(loginUser.rejected, (state, action) => {
-			state.isLoading = false;
+			state.loginLoading = false;
 			state.isAuth = false;
 			state.user = {};
+			toast.error('Login failed, please try again');
 		});
 		builder.addCase(registerUser.pending, (state) => {
 			state.registrationLoading = true;
 		});
 		builder.addCase(registerUser.fulfilled, (state, action) => {
 			state.registrationLoading = false;
-			state.isAuth = true;
+			toast.success('Registration successful');
 			window.location.href = '/login';
 		});
 		builder.addCase(registerUser.rejected, (state, action) => {
 			state.registrationLoading = false;
-			state.isAuth = false;
-			state.user = {};
+			console.log(action.payload);
+			toast.error(action.payload.message);
 		});
 	},
 });

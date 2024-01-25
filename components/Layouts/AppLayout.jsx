@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { toggleTheme } from '../../Redux/slices/helperSlice';
 import { useDispatch } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AppLayout = ({ children }) => {
 	const [theme, setTheme] = useState('light');
@@ -36,7 +38,12 @@ const AppLayout = ({ children }) => {
 			dispatch(toggleTheme('light'));
 		}
 	};
-	return <div>{children}</div>;
+	return (
+		<div>
+			<ToastContainer />
+			{children}
+		</div>
+	);
 };
 
 export default AppLayout;
