@@ -17,7 +17,7 @@ const AuthLayout = ({ children }) => {
 	// 	}
 	// }, [session]);
 
-	return <div className='bg-primary-bg-light p-4 min-h-screen'>{children}</div>;
+	return <div className='bg-primary-bg-light md:p-4 min-h-screen'>{children}</div>;
 };
 
 export default AuthLayout;

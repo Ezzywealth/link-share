@@ -8,10 +8,10 @@ import Logo from '../components/Logo';
 const LoginScreen = () => {
 	return (
 		<AuthLayout>
-			<main className=' flex justify-center items-center min-h-screen text-primary-text-color-light'>
+			<main className=' flex justify-center px-4 items-center min-h-screen text-primary-text-color-light'>
 				<section className='w-[420px] space-y-7'>
 					<Logo />
-					<div className='bg-primary-white-light p-8 rounded shadow-md w-[420px]'>
+					<div className='bg-primary-white-light p-4 md:p-8 rounded shadow-md w-full md:w-[420px]'>
 						<h2 className='text-2xl font-bold mb-1 text-dark-grey-color-light'>Login</h2>
 						<p>Add your details below to get back into the app</p>
 						<form className='mt-6'>
@@ -33,11 +33,11 @@ const LoginScreen = () => {
 									<input type='password' id='' className='w-full   focus:outline-none none bg-none' required />
 								</div>
 							</div>
-							<button type='submit' className='bg-primary-button-bg text-white py-2 px-4 rounded hover:bg-primary-button-bg focus:outline-none focus:shadow-outline-blue w-full'>
+							<button type='submit' className='bg-primary-button-bg text-white py-2 px-4 rounded-md hover:bg-primary-button-bg focus:outline-none focus:shadow-outline-blue w-full'>
 								Log In
 							</button>
 						</form>
-						<p className='mt-6 text-sm text-center'>
+						<p className='mt-6 text-sm flex items-center flex-col md:flex-row justify-center text-center'>
 							Don&apos;t have an account?{' '}
 							<Link href='/register' className='text-primary-button-bg hover:underline'>
 								Create account
