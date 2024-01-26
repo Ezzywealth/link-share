@@ -1,4 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const initialState = {
 	theme: 'light',
@@ -6,7 +8,20 @@ const initialState = {
 	activateSaveBtn: false,
 	newLinks: [],
 	allLinks: [],
+	saveLinksLoading: false,
+	saveLinksError: false,
 };
+
+export const saveLinksToDb = createAsyncThunk('link/createLink', async (links, thunkApi) => {
+	const { user } = thunkApi.getState().user;
+	const newLinks = links.map((link) => {
+		return { ...link, user: user.id };
+	});
+	console.log(newLinks);
+	const { data } = await axios.post(`http://localhost:3000/api/auth/saveLink`, { newLinks });
+	console.log(data);
+	return data;
+});
 
 export const helperSlice = createSlice({
 	name: 'helper',
@@ -51,6 +66,23 @@ export const helperSlice = createSlice({
 			link.color = color;
 			link.address = address;
 		},
+	},
+	extraReducers: (builders) => {
+		builders.addCase(saveLinksToDb.pending, (state, action) => {
+			state.saveLinksLoading = true;
+		});
+		builders.addCase(saveLinksToDb.fulfilled, (state, action) => {
+			state.saveLinksLoading = false;
+			state.saveLinksError = false;
+			state.newLinks = [];
+			state.allLinks = [...action.payload.data, ...state.allLinks];
+			state.activateSaveBtn = false;
+		});
+		builders.addCase(saveLinksToDb.rejected, (state, action) => {
+			state.saveLinksLoading = false;
+			state.saveLinksError = 'An error occurred while saving your links. Please try again later';
+			toast.error(action.payload.message);
+		});
 	},
 });
 

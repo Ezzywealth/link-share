@@ -24,7 +24,6 @@ const handler = async (req, res) => {
 		// Find and return the document
 		const filter = { 'email': email };
 		const document = await User.findOne(filter);
-		console.log('Document found:\n' + JSON.stringify(document));
 		res.json(document);
 	} catch (e) {
 		console.log(e.message);

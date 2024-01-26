@@ -12,7 +12,7 @@ const Dashboard = () => {
 
 	return (
 		<DashboardLayout>
-			<main className='grid grid-cols-7 gap-6 mt-4'>
+			<main className='grid grid-cols-7 gap-6 mt-4 overflow-auto'>
 				<section className='rounded-md col-span-3 hidden  lg:flex justify-center py-6 px-8 items-center bg-primary-white-light '>
 					<article className='border relative border-dark-border-color rounded-[40px] p-2 py-4 flex justify-center items-center'>
 						<section className='relative'>

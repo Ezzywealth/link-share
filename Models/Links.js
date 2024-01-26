@@ -1,16 +1,16 @@
 import mongoose from 'mongoose';
 
-const orderSchema = new mongoose.Schema(
+const linkSchema = new mongoose.Schema(
 	{
 		user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-		name: { type: string, required },
-		address: { type: string, required },
-		color: { type: string, required },
+		name: { type: String, required: true },
+		address: { type: String, required: true },
+		color: { type: String, required: true },
 	},
 	{
 		timestamps: true,
 	}
 );
 
-const Link = mongoose.models.Link || mongoose.model('Link', orderSchema);
-export default Link;
+const Links = mongoose.models.Links || mongoose.model('Links', linkSchema);
+export default Links;

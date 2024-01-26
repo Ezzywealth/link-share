@@ -2,9 +2,10 @@ import React from 'react';
 import AddLinks from './AddLinks';
 import GetStarted from './GetStarted';
 import useDashboardHook from '../hooks/useDashboardHook';
+import { RotatingLines } from 'react-loader-spinner';
 
 const LinksPage = () => {
-	const { noOfLinks, handleAddNewLink, activateSaveBtn, newLinks, handleSaveLinks } = useDashboardHook();
+	const { saveLinksLoading, handleAddNewLink, activateSaveBtn, newLinks, handleSaveLinks } = useDashboardHook();
 	return (
 		<section className='col-span-7 lg:col-span-4 bg-primary-white-light rounded-md p-6 md:px-12  overflow-auto'>
 			<h2 className='text-dark-grey-color-light font-bold text-2xl mb-2'>Customize your links</h2>
@@ -16,7 +17,16 @@ const LinksPage = () => {
 				{newLinks.length > 0 ? <AddLinks /> : <GetStarted />}
 				<section className='flex w-full justify-end pt-4'>
 					<button onClick={handleSaveLinks} className={`bg-primary-button-bg w-full md:w-auto text-white px-6 py-2 rounded-md ${activateSaveBtn ? 'opacity-100' : 'opacity-25'}`}>
-						Save
+						{
+							// if saveLinksLoading is true, show the loading icon, else show the text 'Save'
+							saveLinksLoading ? (
+								<div>
+									<RotatingLines visible={true} height='25' width='25' color='#fff' strokeWidth='5' animationDuration='0.75' ariaLabel='rotating-lines-loading' wrapperStyle={{}} wrapperClass='' />{' '}
+								</div>
+							) : (
+								'Save'
+							)
+						}
 					</button>
 				</section>
 			</section>

@@ -6,12 +6,14 @@ import { useForm } from 'react-hook-form';
 import { updateUser } from '../../../Redux/slices/userSlice';
 import { RotatingLines } from 'react-loader-spinner';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 
 const ProfilePage = () => {
 	const { updateUserLoading } = useSelector((state) => state.user);
 	const [activateSave, setActivateSave] = useState(false);
-	const [imageFile, setImageFile] = useState(null);
+	const [imageUrl, setImageUrl] = useState('');
 	const { data: session } = useSession();
+	console.log(session);
 	const {
 		register,
 		watch,
@@ -35,7 +37,7 @@ const ProfilePage = () => {
 
 	// a function to dispatch the updateUser action with the form data
 	const handleUpdate = async (data) => {
-		const resp = await dispatch(updateUser({ ...data, email: session?.user.email }));
+		const resp = await dispatch(updateUser({ ...data, email: session?.user.email, image: imageUrl }));
 
 		// if the response is successful, reset the form
 		if (resp.type === 'user/updateUser/fulfilled') {
@@ -51,9 +53,16 @@ const ProfilePage = () => {
 			</div>
 			<article className='flex flex-col md:flex-row items-center justify-between text-primary-text-color-light  bg-light-Grey p-6 gap-8'>
 				<p className='w-auto'>Profile Picture</p>
+
 				<div className='flex flex-col md:flex-row items-center gap-6'>
 					<div className='bg-light-Purple flex flex-col rounded-lg justify-center items-center  w-auto'>
-						<ImgUploader setImageFile={setImageFile} />
+						{imageUrl ? (
+							<div className=''>
+								<Image src={imageUrl} height={150} width={150} alt='profile picture' className='rounded-lg h-[200px] w-[200px]' />
+							</div>
+						) : (
+							<ImgUploader setImageUrl={setImageUrl} />
+						)}
 					</div>
 					<p className='text-xs w-full'>
 						Image must be below 1024x1024px. <br /> Use PNG or JPG format.
