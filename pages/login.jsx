@@ -5,9 +5,8 @@ import EmailIcon from '../components/svgs/login/EmailIcon';
 import Link from 'next/link';
 import Logo from '../components/Logo';
 import { useForm } from 'react-hook-form';
-import { Bars, RotatingLines } from 'react-loader-spinner';
+import { RotatingLines } from 'react-loader-spinner';
 import { useDispatch, useSelector } from 'react-redux';
-import { signIn } from 'next-auth/react';
 import { loginUser } from '../Redux/slices/authSlice';
 
 const LoginScreen = () => {

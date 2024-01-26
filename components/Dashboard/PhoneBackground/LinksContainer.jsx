@@ -15,8 +15,8 @@ const LinksContainer = () => {
 					</>
 				) : (
 					<>
-						{Array.from({ length: 5 }).map((_, index) => (
-							<li key={index} className='bg-primary-bg-light px-2 text-primary-white-light font-semibold rounded-lg h-8 w-full border'></li>
+						{Array.from({ length: 4 }).map((_, index) => (
+							<li key={index} className='bg-primary-bg-light py-2 px-2 text-primary-white-light font-semibold rounded-lg h-10 w-full border'></li>
 						))}
 					</>
 				)}

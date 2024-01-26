@@ -21,16 +21,12 @@ export const authOptions = {
 					email: credentials.email,
 				});
 				// disconnect from database
-				console.log(user);
-				console.log(credentials);
 				await disconnect();
 				// if user is found and password matches, return user object
 				if (user && bcryptjs.compareSync(credentials.password, user.password)) {
 					return {
 						_id: user._id,
-						name: user.name,
 						email: user.email,
-						image: '',
 					};
 				}
 				// if no user is found or password does not match, throw error
@@ -40,6 +36,7 @@ export const authOptions = {
 	],
 	session: {
 		strategy: 'jwt',
+		maxAge: 3 * 24 * 60 * 60, // 3 days
 	},
 	pages: {
 		signIn: '/login',

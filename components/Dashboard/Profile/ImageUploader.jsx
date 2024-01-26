@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import ImageUploader from 'react-image-upload';
 import 'react-image-upload/dist/index.css';
 import UploadIcon from '../../svgs/Dashboard/UploadIcon';
+import { set } from 'lodash';
 
-const ImgUploader = () => {
+const ImgUploader = ({ setImageFile }) => {
 	const [imageLoaded, setImageLoaded] = useState(false);
 	const [uploadText, setUploadText] = useState('+ Upload Image');
 
 	// This function is run after the image is gotten from the file input
 	function getImageFileObject(imageFile) {
-		console.log({ imageFile });
+		setImageFile({ imageFile });
 		setImageLoaded(true);
 		setUploadText('Change Image');
 	}
