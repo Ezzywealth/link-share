@@ -35,8 +35,8 @@ const useDashboardHook = () => {
 		dispatch(increaseLinks());
 	};
 
-	const handleRemoveLink = () => {
-		dispatch(removeLink());
+	const handleRemoveLink = (id) => {
+		dispatch(removeLink(id));
 	};
 
 	const updateLinks = (id, selectedOption, linkAddress) => {

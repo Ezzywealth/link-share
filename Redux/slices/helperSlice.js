@@ -16,6 +16,9 @@ export const helperSlice = createSlice({
 			state.theme = action.payload;
 		},
 		increaseLinks: (state) => {
+			if (state.newLinks.length === 2) {
+				return;
+			}
 			const obj = {
 				id: state.newLinks.length + 1,
 				name: '',
@@ -26,8 +29,9 @@ export const helperSlice = createSlice({
 			state.newLinks.unshift(obj);
 		},
 		removeLink: (state, action) => {
+			console.log(action.payload);
 			state.noOfLinks -= 1;
-			state.newLinks.filter((link) => link.id !== action.payload);
+			state.newLinks = state.newLinks.filter((link) => link.id !== action.payload);
 		},
 		toggleActivateSaveBtn: (state, action) => {
 			state.activateSaveBtn = action.payload;
