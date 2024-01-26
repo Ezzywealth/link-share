@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { increaseLinks, removeLink, saveLinks, saveLinksToDb, toggleActivateSaveBtn, updateLink } from '../../../Redux/slices/helperSlice';
+import { fetchLinksFromDb, increaseLinks, removeLink, saveLinks, saveLinksToDb, toggleActivateSaveBtn, updateLink } from '../../../Redux/slices/helperSlice';
 
 const useDashboardHook = () => {
 	const dispatch = useDispatch();
@@ -57,7 +57,11 @@ const useDashboardHook = () => {
 		dispatch(toggleActivateSaveBtn(false));
 	};
 
-	return { styles, noOfLinks, handleAddNewLink, handleRemoveLink, activateSave, setActivateSave, handleActivateSave, deActivateSave, activateSaveBtn, newLinks, updateLinks, handleSaveLinks, saveLinksLoading };
+	const fetchLinks = () => {
+		dispatch(fetchLinksFromDb());
+	};
+
+	return { styles, noOfLinks, handleAddNewLink, handleRemoveLink, activateSave, setActivateSave, handleActivateSave, deActivateSave, activateSaveBtn, newLinks, updateLinks, handleSaveLinks, saveLinksLoading, fetchLinks };
 };
 
 export default useDashboardHook;
