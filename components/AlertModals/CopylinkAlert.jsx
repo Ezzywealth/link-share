@@ -22,8 +22,8 @@ const CopylinkAlert = () => {
 	}, [timer, showCopyAlert]);
 
 	return (
-		<section className={`fixed bottom-8 z-[10000] left-0 right-0 w-full flex justify-center ${showCopyAlert ? 'block' : 'hidden'}`}>
-			<section className='flex items-center px-4 py-2 bg-dark-grey-color-light w-auto text-light-Grey rounded-lg '>
+		<section className={`fixed bottom-8 z-[10000] left-0 right-0 w-full flex justify-center ${showCopyAlert ? 'block showModal ' : 'hidden'}`}>
+			<section className=' flex items-center px-4 py-2 bg-dark-grey-color-light w-auto text-light-Grey rounded-lg '>
 				<LinkIcon />
 				<p className='text-sm ml-2'>The link has been copied to your clipboard!</p>
 			</section>

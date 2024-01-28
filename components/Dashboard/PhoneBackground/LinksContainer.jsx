@@ -2,13 +2,16 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SingleLink from './SingleLink';
 import { toggleCopyModal } from '../../../Redux/slices/alertSlice';
+import useModalHooks from '../hooks/useModalHooks';
 
 const LinksContainer = () => {
 	const { allLinks } = useSelector((state) => state.helper);
 	const dispatch = useDispatch();
+	const { showCopyModal } = useModalHooks();
 
 	const handleCopyLink = () => {
 		navigator.clipboard.writeText('i have been copied');
+		// showCopyModal();
 		dispatch(toggleCopyModal(true));
 	};
 

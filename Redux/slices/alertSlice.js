@@ -9,6 +9,9 @@ const alertSlice = createSlice({
 	initialState,
 	reducers: {
 		toggleCopyModal: (state, action) => {
+			if (state.showCopyAlert) {
+				state.showCopyAlert = false;
+			}
 			state.showCopyAlert = action.payload;
 		},
 	},
