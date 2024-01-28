@@ -48,6 +48,7 @@ export const userSlice = createSlice({
 			state.showChangesAlert = false;
 		});
 		builder.addCase(updateUser.fulfilled, (state, action) => {
+			console.log(action.payload);
 			state.showChangesAlert = true;
 			state.updateUserLoading = false;
 			state.user = action.payload.data;

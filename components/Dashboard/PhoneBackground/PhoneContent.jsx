@@ -8,6 +8,9 @@ const PhoneContent = () => {
 	const { user } = useSelector((state) => state.user);
 	const { fetchLinks } = useDashboardHook();
 
+	// construct the fullname from the user firstname and lastname
+	const fullName = `${user?.firstName ? user?.firstName:''} ${user?.lastName? user?.lastName:''}`;
+
 	useEffect(() => {
 		if (user?.id) {
 			fetchLinks();
@@ -18,8 +21,8 @@ const PhoneContent = () => {
 		<div className='absolute top-0 left-0 right-0 bg-primary-white-light z-50 flex justify-center items-center h-full w-full '>
 			<div className='flex px-6 flex-col justify-between  gap-12 w-full'>
 				<section className='space-y-4 flex w-full px-4  flex-col items-center'>
-					<div className={`flex flex-col justify-center items-center rounded-full h-24 w-24 ${!user?.image && 'bg-profile-image-bg'}`}>{user?.image && <Image src={user?.image} alt='profile-image' />}</div>
-					<p className={`flex flex-col justify-center text-dark-grey-color-light text-xl items-center rounded-lg h-4 w-full font-bold ${!user?.firstName && 'bg-profile-image-bg'}`}>{(user?.firstName || user?.lastName) && `${user?.firstName} ${user?.lastName}`}</p>
+					<div className={`block relative rounded-full h-[100px] w-[100px]  ${!user?.image && 'bg-profile-image-bg'}`}>{user?.image && <Image src={user?.image} alt='profile-image' layout='fill' className='rounded-full' />}</div>
+					<p className={`flex-nowrap flex flex-col justify-center text-dark-grey-color-light text-lg items-center rounded-lg h-4 w-full font-bold ${!user?.firstName && 'bg-profile-image-bg'}`}>{fullName?.length > 20 ? `${fullName.slice(0,14)}...` : fullName}</p>
 					<p className={`flex flex-col text-primary-text-color-light text-sm  justify-center items-center rounded-lg h-2 w-20 ${!user?.email && 'bg-profile-image-bg'}`}>{user?.email && user?.email}</p>
 				</section>
 				<LinksContainer />

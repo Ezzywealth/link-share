@@ -3,6 +3,7 @@ import ArrowRightIcon from '../../svgs/Dashboard/ArrowRightIcon';
 import { displayLinks } from '../../../utils/linksData';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
+import { toggleCopyModal } from '../../../Redux/slices/alertSlice';
 
 const SingleLink = ({ link }) => {
 	const [linkLabel, setLinkLabel] = useState(null);
@@ -21,10 +22,10 @@ const SingleLink = ({ link }) => {
 
 	return (
 		<li onClick={() => handleLinkCopy(link.address)} className={`${link?.id ? `bg-[${link?.color}]` : 'bg-profile-image-bg'} px-2 text-primary-white-light font-semibold rounded-lg h-10 w-full border cursor-copy`} style={{ background: link?.color }}>
-			<Link href={link?.address} className='flex justify-between items-center  text-base h-full capitalize'>
+			<section  className='flex justify-between items-center  text-base h-full capitalize'>
 				<span>{linkLabel?.label}</span>
 				<ArrowRightIcon color={linkLabel?.color === '#fff' ? '#333' : '#fff'} />
-			</Link>
+			</section>
 		</li>
 	);
 };

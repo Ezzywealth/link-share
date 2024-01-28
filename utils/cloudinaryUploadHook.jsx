@@ -15,7 +15,7 @@ export const uploadFile = async (file) => {
 	const uniqueUploadId = generateUniqueUploadId();
 
 	// set the chunk size to 1MB
-	const chunkSize = 1 * 1024 * 1024;
+	const chunkSize = 5 * 1024 * 1024;
 
 	// get the total number of chunks
 	const totalChunks = Math.ceil(file.size / chunkSize);
@@ -72,7 +72,6 @@ export const uploadFile = async (file) => {
 			}
 		} catch (error) {
 			console.error('Error uploading chunk:', error);
-			setUploading(false);
 		}
 	};
 

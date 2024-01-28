@@ -3,13 +3,17 @@ import AuthLayout from '../components/Layouts/AuthLayout';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import SaveSpinner from '../components/LoadingSpinners/SaveSpinner';
+
 
 const Home = () => {
 	const router = useRouter();
 	const { data: session, status } = useSession();
 
 	if (status === 'loading') {
-		return <h2>loading.....</h2>;
+		return <section className='h-screen bg-primary-bg-light w-full h-screen flex justify-center items-center'>
+			<SaveSpinner/>
+		</section>;
 	}
 
 	if (status === 'authenticated') {

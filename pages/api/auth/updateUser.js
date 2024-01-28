@@ -27,7 +27,7 @@ const handler = async (req, res) => {
 		if (user) {
 			// connect to mongodb database
 			await dbConnect();
-
+			console.log(user);
 			// update user
 			await User.updateOne(
 				{ email: email },
@@ -44,6 +44,7 @@ const handler = async (req, res) => {
 			const newUser = await User.findOne({
 				email: email,
 			});
+			console.log(newUser);
 			// disconnect from database
 			await disconnect();
 			res.status(200).json({
@@ -53,6 +54,7 @@ const handler = async (req, res) => {
 					email: newUser.email,
 					firstName: newUser.firstName,
 					lastName: newUser.lastName,
+					image: newUser.image,
 				},
 			});
 		} else {

@@ -16,9 +16,8 @@ const LinksPage = () => {
 			<section className='mt-4 divide-y space-y-4'>
 				{newLinks.length > 0 ? <AddLinks /> : <GetStarted />}
 				<section className='flex w-full justify-end pt-4'>
-					<button onClick={handleSaveLinks} className={`bg-primary-button-bg w-full md:w-[100px] text-white px-6 py-2 rounded-md ${activateSaveBtn ? 'opacity-100' : 'opacity-25'}`}>
+					<button onClick={handleSaveLinks} className={`bg-primary-button-bg w-full flex justify-center items-center md:w-[100px] text-white px-6 py-2 rounded-md ${activateSaveBtn ? 'opacity-100' : 'opacity-25'}`}>
 						{
-							// if saveLinksLoading is true, show the loading icon, else show the text 'Save'
 							saveLinksLoading ? <SaveSpinner /> : 'Save'
 						}
 					</button>

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import ImageUploader from 'react-image-upload';
 import 'react-image-upload/dist/index.css';
 import UploadIcon from '../../svgs/Dashboard/UploadIcon';
 
-const ImgUploader = ({ setFile }) => {
-	const [imageLoaded, setImageLoaded] = useState(false);
+const ImgUploader = ({ setFile, user,file }) => {
+	const [imageLoaded, setImageLoaded] = useState( false);
 	const [uploadText, setUploadText] = useState('+ Upload Image');
 
 	// This function is run after the image is gotten from the file input
@@ -17,6 +17,13 @@ const ImgUploader = ({ setFile }) => {
 	function runAfterImageDelete(file) {
 		console.log({ file });
 	}
+
+	useEffect(()=>{
+		if(user?.image && !file){
+			setImageLoaded(true)
+			setUploadText('Change Image')
+		}
+	},[user])
 
 	return (
 		<>

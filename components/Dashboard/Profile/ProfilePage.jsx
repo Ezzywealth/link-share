@@ -48,6 +48,7 @@ const ProfilePage = () => {
 
 			// get the image url from the response and set the imageUploading state to false
 			imageUrl = result?.secure_url;
+			setFile(null);
 			setImageUploading(false);
 		}
 		const resp = await dispatch(updateUser({ ...data, email: session?.user.email, image: imageUrl }));
@@ -57,6 +58,7 @@ const ProfilePage = () => {
 			reset();
 		}
 	};
+	console.log(user);
 
 	return (
 		<form onSubmit={handleSubmit(handleUpdate)} className='col-span-7 lg:col-span-4 bg-primary-white-light rounded-md p-4 md:p-6  overflow-auto'>
@@ -68,14 +70,11 @@ const ProfilePage = () => {
 				<p className='w-auto'>Profile Picture</p>
 
 				<div className='flex flex-col md:flex-row items-center gap-6'>
-					<div className='bg-light-Purple flex flex-col rounded-lg justify-center items-center  w-auto'>
-						{user?.image ? (
-							<div className=''>
-								<Image src={user?.image} height={150} width={150} alt='profile picture' className='rounded-lg h-[150px] w-[150px]' />
-							</div>
-						) : (
-							<ImgUploader setImageFormData={setImageFormData} setFile={setFile} file={file} />
-						)}
+					<div className=' h-[150px] w-[150px] flex flex-col relative rounded-lg justify-center items-center'>
+						<div className={`absolute w-full  top-0 h-[150px] left-0 ${user?.image && !file ? 'block' : 'hidden'}`}>
+							<Image src={user?.image} layout='fill' alt='profile-picture' className='rounded-lg' />
+						</div>
+						<ImgUploader setImageFormData={setImageFormData} setFile={setFile} file={file} user={user} />
 					</div>
 					<p className='text-xs w-full'>
 						Image must be below 1024x1024px. <br /> Use PNG or JPG format.
