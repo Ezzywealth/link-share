@@ -1,9 +1,20 @@
 import User from '../../../Models/User';
 import { dbConnect, disconnect } from '../../../lib/mongodb';
+import path from 'path';
+import DatauriParser from 'datauri/parser';
+import { uploadFile } from '../../../utils/cloudinaryUploadHook';
+const cloudinary = require('cloudinary').v2;
+
+// Return "https" URLs by setting secure: true
+cloudinary.config({
+	secure: true,
+});
 
 const handler = async (req, res) => {
+	console.log(req.body);
 	if (req.method === 'PUT') {
 		const { firstName, lastName, image, email } = req.body;
+
 		// connect to mongodb database
 		await dbConnect();
 		// find user by email
@@ -53,3 +64,10 @@ const handler = async (req, res) => {
 	}
 };
 export default handler;
+export const config = {
+	api: {
+		bodyParser: {
+			sizeLimit: '5mb', // Set the limit according to your needs
+		},
+	},
+};

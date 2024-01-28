@@ -7,13 +7,15 @@ import { updateUser } from '../../../Redux/slices/userSlice';
 import { RotatingLines } from 'react-loader-spinner';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
+import { uploadFile } from '../../../utils/cloudinaryUploadHook';
 
 const ProfilePage = () => {
-	const { updateUserLoading } = useSelector((state) => state.user);
+	const { updateUserLoading, user } = useSelector((state) => state.user);
+	const [imageUploading, setImageUploading] = useState(false);
 	const [activateSave, setActivateSave] = useState(false);
-	const [imageUrl, setImageUrl] = useState('');
+	const [imageFormData, setImageFormData] = useState(null);
+	const [file, setFile] = useState(null);
 	const { data: session } = useSession();
-	console.log(session);
 	const {
 		register,
 		watch,
@@ -28,7 +30,7 @@ const ProfilePage = () => {
 
 	// watch for changes in the form and set the activateSave state to true
 	useEffect(() => {
-		if (watchAllFields.firstName || watchAllFields.lastName) {
+		if (watchAllFields.firstName || watchAllFields.lastName || file) {
 			setActivateSave(true);
 		} else if (!watchAllFields.firstName && !watchAllFields.lastName) {
 			setActivateSave(false);
@@ -37,6 +39,17 @@ const ProfilePage = () => {
 
 	// a function to dispatch the updateUser action with the form data
 	const handleUpdate = async (data) => {
+		let imageUrl = '';
+
+		// handle a case where there is a profile image to be updated
+		if (file) {
+			setImageUploading(true);
+			const result = await uploadFile(file);
+
+			// get the image url from the response and set the imageUploading state to false
+			imageUrl = result?.secure_url;
+			setImageUploading(false);
+		}
 		const resp = await dispatch(updateUser({ ...data, email: session?.user.email, image: imageUrl }));
 
 		// if the response is successful, reset the form
@@ -56,12 +69,12 @@ const ProfilePage = () => {
 
 				<div className='flex flex-col md:flex-row items-center gap-6'>
 					<div className='bg-light-Purple flex flex-col rounded-lg justify-center items-center  w-auto'>
-						{imageUrl ? (
+						{user?.image ? (
 							<div className=''>
-								<Image src={imageUrl} height={150} width={150} alt='profile picture' className='rounded-lg h-[200px] w-[200px]' />
+								<Image src={user?.image} height={150} width={150} alt='profile picture' className='rounded-lg h-[150px] w-[150px]' />
 							</div>
 						) : (
-							<ImgUploader setImageUrl={setImageUrl} />
+							<ImgUploader setImageFormData={setImageFormData} setFile={setFile} file={file} />
 						)}
 					</div>
 					<p className='text-xs w-full'>
@@ -75,7 +88,7 @@ const ProfilePage = () => {
 			<hr />
 			<section className='flex justify-end pt-4 w-full'>
 				<button disabled={updateUserLoading || !activateSave} type='submit' className={`bg-primary-button-bg w-full md:w-[100px] text-white px-6 py-2 rounded-md flex justify-center items-center ${activateSave ? 'opacity-100' : 'opacity-25'}`}>
-					{updateUserLoading ? (
+					{updateUserLoading || imageUploading ? (
 						<div>
 							<RotatingLines visible={true} height='25' width='25' color='#fff' strokeWidth='5' animationDuration='0.75' ariaLabel='rotating-lines-loading' wrapperStyle={{}} wrapperClass='' />{' '}
 						</div>

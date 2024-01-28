@@ -50,7 +50,7 @@ export const userSlice = createSlice({
 		builder.addCase(updateUser.rejected, (state, action) => {
 			state.updateUserLoading = false;
 			state.updateUserError = action.payload;
-			toast.error(action.payload.message);
+			toast.error(action?.payload?.message);
 		});
 		builder.addCase(fecthUser.pending, (state) => {
 			state.userLoading = true;
