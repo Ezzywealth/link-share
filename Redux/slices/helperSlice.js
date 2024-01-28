@@ -21,13 +21,13 @@ export const saveLinksToDb = createAsyncThunk('link/createLink', async (links, t
 	const newLinks = links.map((link) => {
 		return { ...link, user: user.id };
 	});
-	const { data } = await axios.post(`http://localhost:3000/api/auth/saveLink`, { newLinks });
+	const { data } = await axios.post(`/api/auth/saveLink`, { newLinks });
 	return data;
 });
 
 export const fetchLinksFromDb = createAsyncThunk('link/fetchLinks', async (links, thunkApi) => {
 	const { user } = thunkApi.getState().user;
-	const { data } = await axios.post(`http://localhost:3000/api/auth/getLinks`, { user });
+	const { data } = await axios.post(`/api/auth/getLinks`, { user });
 	console.log(data);
 	return data;
 });
