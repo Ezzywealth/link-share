@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
 
 const initialState = {
 	updateUserLoading: false,
@@ -11,7 +10,7 @@ const initialState = {
 };
 
 export const updateUser = createAsyncThunk('user/updateUser', async (user) => {
-	const response = await fetch('http://localhost:3000/api/auth/updateUser', {
+	const response = await fetch('/api/auth/updateUser', {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
@@ -23,7 +22,7 @@ export const updateUser = createAsyncThunk('user/updateUser', async (user) => {
 });
 
 export const fecthUser = createAsyncThunk('user/fetchUser', async (email) => {
-	const response = await fetch('http://localhost:3000/api/auth/getUser', {
+	const response = await fetch('/api/auth/getUser', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -66,9 +65,8 @@ export const userSlice = createSlice({
 			state.userLoading = true;
 		});
 		builder.addCase(fecthUser.fulfilled, (state, action) => {
-			console.log(action.payload);
 			state.userLoading = false;
-			state.user = action.payload.data;
+			state.user = action.payload?.data;
 		});
 		builder.addCase(fecthUser.rejected, (state, action) => {
 			state.userLoading = false;
