@@ -9,6 +9,8 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../Redux/slices/authSlice';
 import { Bars, RotatingLines } from 'react-loader-spinner';
+import Head from 'next/head';
+import OvalSpinner from '../components/LoadingSpinners/OvalSpinner';
 
 const RegisterScreen = () => {
 	const router = useRouter();
@@ -29,6 +31,11 @@ const RegisterScreen = () => {
 
 	return (
 		<AuthLayout>
+			<Head>
+				<title>Register</title>
+				<meta name='description' content='' />
+				<link rel='icon' href='/favicon.ico' />
+			</Head>
 			<main className=' flex justify-center px-4 items-center min-h-screen text-primary-text-color-light'>
 				<section className='w-[420px] space-y-5'>
 					<Logo />
@@ -101,17 +108,10 @@ const RegisterScreen = () => {
 								<p className='text-xs text-red-500'>{errors?.confirmPassword && errors?.confirmPassword?.message}</p>
 							</div>
 							<button disabled={registrationLoading} type='submit' className='bg-primary-button-bg text-white py-2 px-4 rounded-md hover:bg-primary-button-bg focus:outline-none focus:shadow-outline-blue w-full flex justify-center items-center'>
-								{registrationLoading ? (
-									<div>
-										{' '}
-										<RotatingLines visible={true} height='25' width='25' color='#fff' strokeWidth='5' animationDuration='0.75' ariaLabel='rotating-lines-loading' wrapperStyle={{}} wrapperClass='' />{' '}
-									</div>
-								) : (
-									'Register'
-								)}
+								{registrationLoading ? <OvalSpinner /> : 'Register'}
 							</button>
 						</form>
-						<p className='mt-6 text-sm text-center flex flex-col md:flex-row items-center justify-center'>
+						<p className='mt-6 text-sm text-center flex flex-col md:flex-row items-center gap-1 justify-center'>
 							Already have an account?{' '}
 							<Link href='/login' className='text-primary-button-bg hover:underline'>
 								Login

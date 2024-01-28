@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { toggleTheme } from '../../Redux/slices/helperSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import {useSession} from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { fecthUser } from '../../Redux/slices/userSlice';
+import ChangesAlert from '../AlertModals/ChangesAlert';
+import CopylinkAlert from '../AlertModals/CopylinkAlert';
 
 const AppLayout = ({ children }) => {
 	const [theme, setTheme] = useState('light');
 	const dispatch = useDispatch();
-	const {data:session} = useSession()
-	const {user} = useSelector((state)=>state.user)
+	const { data: session } = useSession();
+	const { user } = useSelector((state) => state.user);
 
-	useEffect(()=>{
-		if(session?.user?.email && !user){
-			dispatch(fecthUser(session?.user.email))
+	useEffect(() => {
+		if (session?.user?.email && !user) {
+			dispatch(fecthUser(session?.user.email));
 		}
-	},[session?.user,user])
+	}, [session?.user, user]);
 
 	// useEffect(() => {
 	// 	if (localStorage.theme === 'dark') {
@@ -51,6 +53,8 @@ const AppLayout = ({ children }) => {
 	return (
 		<div>
 			<ToastContainer />
+			<ChangesAlert />
+			<CopylinkAlert />
 			{children}
 		</div>
 	);

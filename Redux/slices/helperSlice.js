@@ -9,9 +9,10 @@ const initialState = {
 	newLinks: [],
 	allLinks: [],
 	saveLinksLoading: false,
-	saveLinksError: false,
+	saveLinksMessage: '',
 	fetchLinksLoading: false,
-	fetchLinksError: false,
+	fetchLinksError: '',
+	showAddLinkModal: false,
 };
 
 // a function to save the links to the database
@@ -20,9 +21,7 @@ export const saveLinksToDb = createAsyncThunk('link/createLink', async (links, t
 	const newLinks = links.map((link) => {
 		return { ...link, user: user.id };
 	});
-	console.log(newLinks);
 	const { data } = await axios.post(`http://localhost:3000/api/auth/saveLink`, { newLinks });
-	console.log(data);
 	return data;
 });
 
@@ -87,11 +86,12 @@ export const helperSlice = createSlice({
 			state.newLinks = [];
 			state.allLinks = [...action.payload.data, ...state.allLinks];
 			state.activateSaveBtn = false;
-			toast.success(action.payload.message);
+			state.showAddLinkModal = true;
+			state.saveLinksMessage = `link${action.payload.data.length > 1 ? 's' : ''} saved successfully`;
 		});
 		builders.addCase(saveLinksToDb.rejected, (state, action) => {
 			state.saveLinksLoading = false;
-			state.saveLinksError = 'An error occurred while saving your links. Please try again later';
+			state.saveLinksMessage = 'An error occurred while saving your links. Please try again later';
 			toast.error(action.payload.message);
 		});
 		builders.addCase(fetchLinksFromDb.pending, (state, action) => {

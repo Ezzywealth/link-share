@@ -2,7 +2,7 @@ import React from 'react';
 import AddLinks from './AddLinks';
 import GetStarted from './GetStarted';
 import useDashboardHook from '../hooks/useDashboardHook';
-import { RotatingLines } from 'react-loader-spinner';
+import SaveSpinner from '../../LoadingSpinners/SaveSpinner';
 
 const LinksPage = () => {
 	const { saveLinksLoading, handleAddNewLink, activateSaveBtn, newLinks, handleSaveLinks } = useDashboardHook();
@@ -19,13 +19,7 @@ const LinksPage = () => {
 					<button onClick={handleSaveLinks} className={`bg-primary-button-bg w-full md:w-[100px] text-white px-6 py-2 rounded-md ${activateSaveBtn ? 'opacity-100' : 'opacity-25'}`}>
 						{
 							// if saveLinksLoading is true, show the loading icon, else show the text 'Save'
-							saveLinksLoading ? (
-								<div>
-									<RotatingLines visible={true} height='25' width='25' color='#fff' strokeWidth='5' animationDuration='0.75' ariaLabel='rotating-lines-loading' wrapperStyle={{}} wrapperClass='' />{' '}
-								</div>
-							) : (
-								'Save'
-							)
+							saveLinksLoading ? <SaveSpinner /> : 'Save'
 						}
 					</button>
 				</section>

@@ -8,6 +8,8 @@ import { useForm } from 'react-hook-form';
 import { RotatingLines } from 'react-loader-spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../Redux/slices/authSlice';
+import Head from 'next/head';
+import OvalSpinner from '../components/LoadingSpinners/OvalSpinner';
 
 const LoginScreen = () => {
 	const { loginLoading } = useSelector((state) => state.auth);
@@ -24,6 +26,11 @@ const LoginScreen = () => {
 
 	return (
 		<AuthLayout>
+			<Head>
+				<title>Login</title>
+				<meta name='description' content='' />
+				<link rel='icon' href='/favicon.ico' />
+			</Head>
 			<main className=' flex justify-center px-4 items-center min-h-screen text-primary-text-color-light'>
 				<section className='w-[420px] space-y-7'>
 					<Logo />
@@ -73,17 +80,10 @@ const LoginScreen = () => {
 								<p className='text-xs text-red-500'>{errors?.password && errors?.password?.message}</p>
 							</div>
 							<button disabled={loginLoading} type='submit' className='bg-primary-button-bg text-white py-2 px-4 rounded-md hover:bg-primary-button-bg focus:outline-none focus:shadow-outline-blue w-full flex justify-center items-center'>
-								{loginLoading ? (
-									<div>
-										{' '}
-										<RotatingLines visible={true} height='25' width='25' color='#fff' strokeWidth='5' animationDuration='0.75' ariaLabel='rotating-lines-loading' wrapperStyle={{}} wrapperClass='' />{' '}
-									</div>
-								) : (
-									'Log in'
-								)}
+								{loginLoading ? <OvalSpinner /> : 'Log in'}
 							</button>
 						</form>
-						<p className='mt-6 text-sm flex items-center flex-col md:flex-row justify-center text-center'>
+						<p className='mt-6 text-sm flex items-center flex-col md:flex-row gap-1 justify-center text-center'>
 							Don&apos;t have an account?{' '}
 							<Link href='/register' className='text-primary-button-bg hover:underline'>
 								Create account

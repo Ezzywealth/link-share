@@ -3,10 +3,11 @@ import { toast } from 'react-toastify';
 
 const initialState = {
 	updateUserLoading: false,
-	updateUserError: '',
+	updateUserMessage: '',
 	user: null,
 	userLoading: false,
 	userError: '',
+	showChangesAlert: false,
 };
 
 export const updateUser = createAsyncThunk('user/updateUser', async (user) => {
@@ -36,21 +37,29 @@ export const fecthUser = createAsyncThunk('user/fetchUser', async (email) => {
 export const userSlice = createSlice({
 	name: 'user',
 	initialState,
-	reducers: {},
+	reducers: {
+		toggleChangesModal: (state, action) => {
+			state.showChangesAlert = action.payload;
+		},
+	},
 	extraReducers: (builder) => {
 		builder.addCase(updateUser.pending, (state) => {
 			state.updateUserLoading = true;
+			state.showChangesAlert = false;
 		});
 		builder.addCase(updateUser.fulfilled, (state, action) => {
-			console.log(action.payload);
+			state.showChangesAlert = true;
 			state.updateUserLoading = false;
 			state.user = action.payload.data;
-			toast.success(action.payload.message);
+			state.showChangesAlert = true;
+			state.updateUserMessage = 'Your changes have been successfully saved!';
+			// toast.success(action.payload.message);
 		});
 		builder.addCase(updateUser.rejected, (state, action) => {
 			state.updateUserLoading = false;
-			state.updateUserError = action.payload;
-			toast.error(action?.payload?.message);
+			state.updateUserMessage = 'There was an error saving your changes, please try again later!!!';
+			// toast.error(action?.payload?.message);
+			state.showChangesAlert = false;
 		});
 		builder.addCase(fecthUser.pending, (state) => {
 			state.userLoading = true;
@@ -68,3 +77,4 @@ export const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
+export const { toggleChangesModal } = userSlice.actions;

@@ -1,9 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SingleLink from './SingleLink';
+import { toggleCopyModal } from '../../../Redux/slices/alertSlice';
 
 const LinksContainer = () => {
 	const { allLinks } = useSelector((state) => state.helper);
+	const dispatch = useDispatch();
+
+	const handleCopyLink = () => {
+		navigator.clipboard.writeText('i have been copied');
+		dispatch(toggleCopyModal(true));
+	};
+
 	return (
 		<ul className='w-full space-y-2 h-[250px] overflow-auto'>
 			<>
@@ -17,7 +25,7 @@ const LinksContainer = () => {
 				) : (
 					<>
 						{Array.from({ length: 5 }).map((_, index) => (
-							<li key={index} className='bg-primary-bg-light py-2 px-2 text-primary-white-light font-semibold rounded-lg h-10 w-full border'></li>
+							<li onClick={handleCopyLink} key={index} className='bg-primary-bg-light py-2 px-2 text-primary-white-light font-semibold rounded-lg h-10 w-full border cursor-copy'></li>
 						))}
 					</>
 				)}

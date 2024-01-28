@@ -4,10 +4,10 @@ import DetailsComponent from './DetailsComponent';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { updateUser } from '../../../Redux/slices/userSlice';
-import { RotatingLines } from 'react-loader-spinner';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { uploadFile } from '../../../utils/cloudinaryUploadHook';
+import SaveSpinner from '../../LoadingSpinners/SaveSpinner';
 
 const ProfilePage = () => {
 	const { updateUserLoading, user } = useSelector((state) => state.user);
@@ -88,13 +88,7 @@ const ProfilePage = () => {
 			<hr />
 			<section className='flex justify-end pt-4 w-full'>
 				<button disabled={updateUserLoading || !activateSave} type='submit' className={`bg-primary-button-bg w-full md:w-[100px] text-white px-6 py-2 rounded-md flex justify-center items-center ${activateSave ? 'opacity-100' : 'opacity-25'}`}>
-					{updateUserLoading || imageUploading ? (
-						<div>
-							<RotatingLines visible={true} height='25' width='25' color='#fff' strokeWidth='5' animationDuration='0.75' ariaLabel='rotating-lines-loading' wrapperStyle={{}} wrapperClass='' />{' '}
-						</div>
-					) : (
-						'Save'
-					)}
+					{updateUserLoading || imageUploading ? <SaveSpinner /> : 'Save'}
 				</button>
 			</section>
 		</form>
