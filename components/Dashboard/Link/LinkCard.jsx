@@ -27,17 +27,17 @@ const LinkCard = ({ i, link }) => {
 					Link #{i}
 				</span>
 				<span>
-					<button onClick={handleRemoveLink}>Remove</button>
+					<button onClick={() => handleRemoveLink(link.id)}>Remove</button>
 				</span>
 			</div>
 			<div className='mb-3 text-dark-grey-color-light'>
-				<label htmlFor='' className='block mb-2'>
+				<label htmlFor='' className='block mb-'>
 					Platform
 				</label>
 				<Select options={linksOptions} styles={styles} onChange={setSelectedOption} />
 			</div>
 			<div className='mb-3 text-dark-grey-color-light'>
-				<label htmlFor='' className='block mb-2'>
+				<label htmlFor='' className='block mb-'>
 					Link
 				</label>
 				<div className='border flex items-center gap-3 py-2 px-3'>

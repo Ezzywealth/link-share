@@ -28,6 +28,7 @@ module.exports = {
 				'light-Purple': '#EFEBFF',
 				'light-Grey': '#FAFAFA',
 				'purple': '#633CFF',
+				'red':'#FF3939'
 			},
 		},
 	},

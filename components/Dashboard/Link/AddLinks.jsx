@@ -3,10 +3,9 @@ import useDashboardHook from '../hooks/useDashboardHook';
 import LinkCard from './LinkCard';
 
 const AddLinks = () => {
-	const { noOfLinks, newLinks } = useDashboardHook();
-	console.log(newLinks);
+	const { newLinks } = useDashboardHook();
 	return (
-		<ul className='space-y-4'>
+		<ul className='space-y-2'>
 			{newLinks.map((link, i) => (
 				<LinkCard key={i} i={i + 1} link={link} />
 			))}

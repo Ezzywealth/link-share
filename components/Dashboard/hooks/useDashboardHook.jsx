@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { increaseLinks, removeLink, saveLinks, toggleActivateSaveBtn, updateLink } from '../../../Redux/slices/helperSlice';
+import { fetchLinksFromDb, increaseLinks, removeLink, saveLinks, saveLinksToDb, toggleActivateSaveBtn, updateLink } from '../../../Redux/slices/helperSlice';
 
 const useDashboardHook = () => {
 	const dispatch = useDispatch();
 	const [activateSave, setActivateSave] = useState(false);
-	const { noOfLinks, activateSaveBtn, newLinks } = useSelector((state) => state.helper);
+	const { noOfLinks, activateSaveBtn, newLinks, saveLinksLoading } = useSelector((state) => state.helper);
 
 	const styles = {
 		dropdownIndicator: (base) => ({
@@ -35,8 +35,8 @@ const useDashboardHook = () => {
 		dispatch(increaseLinks());
 	};
 
-	const handleRemoveLink = () => {
-		dispatch(removeLink());
+	const handleRemoveLink = (id) => {
+		dispatch(removeLink(id));
 	};
 
 	const updateLinks = (id, selectedOption, linkAddress) => {
@@ -44,8 +44,8 @@ const useDashboardHook = () => {
 	};
 
 	const handleSaveLinks = () => {
-		console.log('function calleld');
-		dispatch(saveLinks());
+		dispatch(saveLinksToDb(newLinks));
+		// dispatch(saveLinks());
 	};
 
 	// This function is used to dispatch the action to toggle the activateSaveBtn state
@@ -57,7 +57,11 @@ const useDashboardHook = () => {
 		dispatch(toggleActivateSaveBtn(false));
 	};
 
-	return { styles, noOfLinks, handleAddNewLink, handleRemoveLink, activateSave, setActivateSave, handleActivateSave, deActivateSave, activateSaveBtn, newLinks, updateLinks, handleSaveLinks };
+	const fetchLinks = () => {
+		dispatch(fetchLinksFromDb());
+	};
+
+	return { styles, noOfLinks, handleAddNewLink, handleRemoveLink, activateSave, setActivateSave, handleActivateSave, deActivateSave, activateSaveBtn, newLinks, updateLinks, handleSaveLinks, saveLinksLoading, fetchLinks };
 };
 
 export default useDashboardHook;

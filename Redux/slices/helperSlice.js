@@ -1,4 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const initialState = {
 	theme: 'light',
@@ -6,7 +8,29 @@ const initialState = {
 	activateSaveBtn: false,
 	newLinks: [],
 	allLinks: [],
+	saveLinksLoading: false,
+	saveLinksMessage: '',
+	fetchLinksLoading: false,
+	fetchLinksError: '',
+	showAddLinkModal: false,
 };
+
+// a function to save the links to the database
+export const saveLinksToDb = createAsyncThunk('link/createLink', async (links, thunkApi) => {
+	const { user } = thunkApi.getState().user;
+	const newLinks = links.map((link) => {
+		return { ...link, user: user.id };
+	});
+	const { data } = await axios.post(`http://localhost:3000/api/auth/saveLink`, { newLinks });
+	return data;
+});
+
+export const fetchLinksFromDb = createAsyncThunk('link/fetchLinks', async (links, thunkApi) => {
+	const { user } = thunkApi.getState().user;
+	const { data } = await axios.post(`http://localhost:3000/api/auth/getLinks`, { user });
+	console.log(data);
+	return data;
+});
 
 export const helperSlice = createSlice({
 	name: 'helper',
@@ -16,6 +40,9 @@ export const helperSlice = createSlice({
 			state.theme = action.payload;
 		},
 		increaseLinks: (state) => {
+			if (state.newLinks.length === 2) {
+				return;
+			}
 			const obj = {
 				id: state.newLinks.length + 1,
 				name: '',
@@ -26,8 +53,9 @@ export const helperSlice = createSlice({
 			state.newLinks.unshift(obj);
 		},
 		removeLink: (state, action) => {
+			console.log(action.payload);
 			state.noOfLinks -= 1;
-			state.newLinks.filter((link) => link.id !== action.payload);
+			state.newLinks = state.newLinks.filter((link) => link.id !== action.payload);
 		},
 		toggleActivateSaveBtn: (state, action) => {
 			state.activateSaveBtn = action.payload;
@@ -47,6 +75,37 @@ export const helperSlice = createSlice({
 			link.color = color;
 			link.address = address;
 		},
+	},
+	extraReducers: (builders) => {
+		builders.addCase(saveLinksToDb.pending, (state, action) => {
+			state.saveLinksLoading = true;
+		});
+		builders.addCase(saveLinksToDb.fulfilled, (state, action) => {
+			state.saveLinksLoading = false;
+			state.saveLinksError = false;
+			state.newLinks = [];
+			state.allLinks = [...action.payload.data, ...state.allLinks];
+			state.activateSaveBtn = false;
+			state.showAddLinkModal = true;
+			state.saveLinksMessage = `link${action.payload.data.length > 1 ? 's' : ''} saved successfully`;
+		});
+		builders.addCase(saveLinksToDb.rejected, (state, action) => {
+			state.saveLinksLoading = false;
+			state.saveLinksMessage = 'An error occurred while saving your links. Please try again later';
+			toast.error(action.payload.message);
+		});
+		builders.addCase(fetchLinksFromDb.pending, (state, action) => {
+			state.fetchLinksLoading = true;
+		});
+		builders.addCase(fetchLinksFromDb.fulfilled, (state, action) => {
+			state.fetchLinksLoading = false;
+			state.fetchLinksError = false;
+			state.allLinks = action?.payload?.data;
+		});
+		builders.addCase(fetchLinksFromDb.rejected, (state, action) => {
+			state.fetchLinksLoading = false;
+			state.fetchLinksError = 'An error occurred while fetching your links. Please try again later';
+		});
 	},
 });
 
