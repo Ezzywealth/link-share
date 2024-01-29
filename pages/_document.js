@@ -11,6 +11,7 @@ class MyDocument extends Document {
 					<meta name='viewport' content='width=device-width, initial-scale=1' />
 					<meta name='theme-color' content='#ffffff' />
 					<meta name='robots' content='follow, index' />
+					<meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover' />
 					<link rel='manifest' href='/manifest.json' />
 				</Head>
 				<body className='bg-gray-100 text-gray-900 font-inter'>
