@@ -58,7 +58,6 @@ const ProfilePage = () => {
 			reset();
 		}
 	};
-	console.log(user);
 
 	return (
 		<form onSubmit={handleSubmit(handleUpdate)} className='col-span-7 lg:col-span-4 bg-primary-white-light rounded-md p-4 md:p-6  overflow-auto'>

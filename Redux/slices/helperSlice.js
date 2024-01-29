@@ -13,7 +13,16 @@ const initialState = {
 	fetchLinksLoading: false,
 	fetchLinksError: '',
 	showAddLinkModal: false,
+	updatingLink: false,
+	deletingLink: false,
+	deleteLinkError: null,
 };
+
+export const deleteLinkWithId = createAsyncThunk('link/deleteLink', async (id, thunkApi) => {
+	const { user } = thunkApi.getState().user;
+	const { data } = await axios.post(`/api/auth/deleteLink`, { id, user });
+	return data;
+});
 
 // a function to save the links to the database
 export const saveLinksToDb = createAsyncThunk('link/createLink', async (links, thunkApi) => {
@@ -75,6 +84,9 @@ export const helperSlice = createSlice({
 			link.color = color;
 			link.address = address;
 		},
+		toggleUpdateLink: (state, action) => {
+			state.updatingLink = action.payload;
+		},
 	},
 	extraReducers: (builders) => {
 		builders.addCase(saveLinksToDb.pending, (state, action) => {
@@ -106,8 +118,22 @@ export const helperSlice = createSlice({
 			state.fetchLinksLoading = false;
 			state.fetchLinksError = 'An error occurred while fetching your links. Please try again later';
 		});
+		builders.addCase(deleteLinkWithId.pending, (state, action) => {
+			state.deletingLink = true;
+		});
+		builders.addCase(deleteLinkWithId.fulfilled, (state, action) => {
+			console.log(action.payload);
+			state.deletingLink = false;
+			state.deleteLinkError = null;
+			state.allLinks = state.allLinks.filter((link) => link._id !== action.payload.data);
+		});
+		builders.addCase(deleteLinkWithId.rejected, (state, action) => {
+			console.log(action.payload);
+			state.deletingLink = false;
+			state.deleteLinkError = action.payload?.message;
+		});
 	},
 });
 
-export const { toggleTheme, increaseLinks, removeLink, toggleActivateSaveBtn, saveLinks, updateLink } = helperSlice.actions;
+export const { toggleTheme, increaseLinks, removeLink, toggleActivateSaveBtn, saveLinks, updateLink, toggleUpdateLink } = helperSlice.actions;
 export default helperSlice.reducer;
