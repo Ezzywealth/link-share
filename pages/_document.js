@@ -6,6 +6,7 @@ class MyDocument extends Document {
 			<Html>
 				<Head>
 					<link rel='shortcut icon' href='/icon.jpg' />
+					<link rel='icon' type='image/svg+xml' href='data:image/svg+xml,%3Csvg ' />
 					<link rel='apple-touch-icon' href='/icon.jpg' />
 					<meta name='viewport' content='width=device-width, initial-scale=1' />
 					<meta name='theme-color' content='#ffffff' />
