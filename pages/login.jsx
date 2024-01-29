@@ -39,8 +39,8 @@ const LoginScreen = () => {
 						<h2 className='text-2xl font-bold mb-1 text-dark-grey-color-light'>Login</h2>
 						<p>Add your details below to get back into the app</p>
 						<form className='mt-6' onSubmit={handleSubmit(handleLogin)}>
-							<div className='mb-5  '>
-								<label htmlFor='email' className='block text-xs font-normal mb-2 text-dark-grey-color-light'>
+							<div className='mb-5 text-dark-grey-color-light '>
+								<label htmlFor='email' className='block text-xs font-normal mb-2 '>
 									Email Address
 								</label>
 								<div className='flex border rounded items-center  px-2 gap-2 py-2'>
@@ -67,7 +67,7 @@ const LoginScreen = () => {
 									Password
 								</label>
 
-								<div className='flex border rounded justify-between items-center  px-2 gap-2 py-2'>
+								<div className='flex border text-dark-grey-color-light rounded justify-between items-center  px-2 gap-2 py-2'>
 									<div className='flex  items-center   gap-2'>
 										<PasswordIcon />
 										<input
