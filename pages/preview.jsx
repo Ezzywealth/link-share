@@ -8,8 +8,6 @@ const Preview = () => {
 		<>
 			<Head>
 				<title>Preview</title>
-				<meta name='description' content='' />
-				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<section className='relative md:bg-purple h-[35vh] max-w-screen w-full box-border md:rounded-b-[2rem] px-4 md:px-0 py-4'>
 				<div className='md:px-4'>

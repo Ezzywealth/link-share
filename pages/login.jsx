@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AuthLayout from '../components/Layouts/AuthLayout';
 import PasswordIcon from '../components/svgs/login/PasswordIcon';
 import EmailIcon from '../components/svgs/login/EmailIcon';
@@ -10,9 +10,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../Redux/slices/authSlice';
 import Head from 'next/head';
 import OvalSpinner from '../components/LoadingSpinners/OvalSpinner';
+import { FaEyeSlash, FaEye } from 'react-icons/fa';
 
 const LoginScreen = () => {
 	const { loginLoading } = useSelector((state) => state.auth);
+	const [showPassword, setShowPassword] = useState(false);
+
 	const {
 		register,
 		handleSubmit,
@@ -28,8 +31,6 @@ const LoginScreen = () => {
 		<AuthLayout>
 			<Head>
 				<title>Login</title>
-				<meta name='description' content='' />
-				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<main className=' flex justify-center px-4 items-center min-h-screen text-primary-text-color-light'>
 				<section className='w-[420px] space-y-7'>
@@ -65,17 +66,21 @@ const LoginScreen = () => {
 								<label htmlFor='password' className='block  text-xs font-normal mb-2 text-dark-grey-color-light'>
 									Password
 								</label>
-								<div className='flex border rounded items-center  px-2 gap-2 py-2'>
-									<PasswordIcon />
-									<input
-										disabled={loginLoading}
-										type='password'
-										id='password'
-										className='w-full focus:outline-none none bg-none'
-										{...register('password', {
-											required: 'password is required',
-										})}
-									/>
+
+								<div className='flex border rounded justify-between items-center  px-2 gap-2 py-2'>
+									<div className='flex  items-center   gap-2'>
+										<PasswordIcon />
+										<input
+											disabled={loginLoading}
+											type={!showPassword ? 'text' : 'password'}
+											id='password'
+											className='w-full focus:outline-none none bg-none'
+											{...register('password', {
+												required: 'password is required',
+											})}
+										/>
+									</div>
+									{!showPassword ? <FaEye onClick={() => setShowPassword(true)} className='cursor-pointer' /> : <FaEyeSlash onClick={() => setShowPassword(false)} className='cursor-pointer' />}
 								</div>
 								<p className='text-xs text-red-500'>{errors?.password && errors?.password?.message}</p>
 							</div>

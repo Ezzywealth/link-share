@@ -15,7 +15,6 @@ const Dashboard = () => {
 		<DashboardLayout>
 			<Head>
 				<title>Dashboard</title>
-				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<main className='grid grid-cols-7 gap-6 mt-4 overflow-auto'>
 				<section className='rounded-md col-span-3 hidden  lg:flex justify-center py-1 px-8 items-center bg-primary-white-light '>
