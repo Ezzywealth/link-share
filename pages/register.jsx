@@ -1,23 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AuthLayout from '../components/Layouts/AuthLayout';
 import PasswordIcon from '../components/svgs/login/PasswordIcon';
 import EmailIcon from '../components/svgs/login/EmailIcon';
 import Link from 'next/link';
 import Logo from '../components/Logo';
-import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../Redux/slices/authSlice';
-import { Bars, RotatingLines } from 'react-loader-spinner';
+import { FaEyeSlash, FaEye } from 'react-icons/fa';
 import Head from 'next/head';
 import OvalSpinner from '../components/LoadingSpinners/OvalSpinner';
 
 const RegisterScreen = () => {
-	const router = useRouter();
+	const [showPassword, setShowPassword] = useState(false);
+	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 	const { registrationLoading } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
-	const [showPassword, setShowPassword] = React.useState(false);
-	const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+
 	const {
 		register,
 		handleSubmit,
@@ -33,8 +32,6 @@ const RegisterScreen = () => {
 		<AuthLayout>
 			<Head>
 				<title>Register</title>
-				<meta name='description' content='' />
-				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<main className=' flex justify-center px-4 items-center min-h-screen text-primary-text-color-light'>
 				<section className='w-[420px] space-y-5'>
@@ -70,21 +67,24 @@ const RegisterScreen = () => {
 								<label htmlFor='password' className='block text-xs font-normal mb-2 text-dark-grey-color-light'>
 									Create Password
 								</label>
-								<div className={`flex border rounded items-center px-2 gap-2 py-2 ${errors?.password ? 'border-red text-red' : 'border-primary-text-color-light text-dark-grey-color-light'}`}>
-									<PasswordIcon color={errors?.password ? '#FF3939' : '#737373'} />
-									<input
-										disabled={registrationLoading}
-										type={showPassword ? 'text' : 'password'}
-										id='password'
-										className='w-full focus:outline-none bg-none'
-										{...register('password', {
-											required: 'password is required',
-											pattern: {
-												value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-												message: 'Password must be at least 8 characters long, contain at least 1 number and 1 letter',
-											},
-										})}
-									/>
+								<div className={`flex border rounded justify-between items-center px-2 gap-2 py-2 ${errors?.password ? 'border-red text-red' : 'border-primary-text-color-light text-dark-grey-color-light'}`}>
+									<div className='flex  items-center  gap-2 '>
+										<PasswordIcon color={errors?.password ? '#FF3939' : '#737373'} />
+										<input
+											disabled={registrationLoading}
+											type={!showPassword ? 'text' : 'password'}
+											id='password'
+											className='w-full focus:outline-none bg-none'
+											{...register('password', {
+												required: 'password is required',
+												pattern: {
+													value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+													message: 'Password must be at least 8 characters long, contain at least 1 number and 1 letter',
+												},
+											})}
+										/>
+									</div>
+									{!showPassword ? <FaEye color={errors?.password ? '#FF3939' : '#737373'} onClick={() => setShowPassword(true)} className='cursor-pointer' /> : <FaEyeSlash color={errors?.password ? '#FF3939' : '#737373'} onClick={() => setShowPassword(false)} className='cursor-pointer' />}
 								</div>
 								<p className='text-xs text-red-500'>{errors?.password && errors?.password?.message}</p>
 							</div>
@@ -92,18 +92,21 @@ const RegisterScreen = () => {
 								<label htmlFor='confirmPassword' className='block text-xs font-normal mb-2 text-dark-grey-color-light'>
 									Confirm Password
 								</label>
-								<div className={`flex border rounded items-center px-2 gap-2 py-2 ${errors?.confirmPassword ? 'border-red text-red' : 'border-primary-text-color-light text-dark-grey-color-light'}`}>
-									<PasswordIcon color={errors?.confirmPassword ? '#FF3939' : '#737373'} />
-									<input
-										disabled={registrationLoading}
-										type={showConfirmPassword ? 'text' : 'password'}
-										id='confirmPassword'
-										className='w-full focus:outline-none bg-none'
-										{...register('confirmPassword', {
-											required: 'confirm your password',
-											validate: (value) => value === watch('password') || 'Passwords do not match',
-										})}
-									/>
+								<div className={`flex border justify-between rounded items-center px-2 gap-2 py-2 ${errors?.confirmPassword ? 'border-red text-red' : 'border-primary-text-color-light text-dark-grey-color-light'}`}>
+									<div className='flex  items-center  gap-2 '>
+										<PasswordIcon color={errors?.confirmPassword ? '#FF3939' : '#737373'} />
+										<input
+											disabled={registrationLoading}
+											type={!showConfirmPassword ? 'text' : 'password'}
+											id='confirmPassword'
+											className='w-full focus:outline-none bg-none'
+											{...register('confirmPassword', {
+												required: 'confirm your password',
+												validate: (value) => value === watch('password') || 'Passwords do not match',
+											})}
+										/>
+									</div>
+									{!showConfirmPassword ? <FaEye color={errors?.confirmPassword ? '#FF3939' : '#737373'} onClick={() => setShowConfirmPassword(true)} className='cursor-pointer' /> : <FaEyeSlash onClick={() => setShowConfirmPassword(false)} className='cursor-pointer' color={errors?.confirmPassword ? '#FF3939' : '#737373'} />}
 								</div>
 								<p className='text-xs text-red-500'>{errors?.confirmPassword && errors?.confirmPassword?.message}</p>
 							</div>

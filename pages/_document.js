@@ -5,7 +5,7 @@ class MyDocument extends Document {
 		return (
 			<Html>
 				<Head>
-					<link rel='shortcut icon' href='/icon.jpg' />
+					<link rel='shortcut icon' href='/icon.jpg' style={{ borderRadius: '10px' }} />
 					<link rel='icon' type='image/svg+xml' href='data:image/svg+xml,%3Csvg ' />
 					<link rel='apple-touch-icon' href='/icon.jpg' />
 					<meta name='viewport' content='width=device-width, initial-scale=1' />
