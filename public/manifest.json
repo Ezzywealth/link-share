@@ -1,12 +1,12 @@
 {
-	"theme_color": "#ab7a5f",
-	"background_color": "#f69435",
+	"theme_color": "#633CFF",
+	"background_color": "#633CFF",
 	"display": "standalone",
-	"scope": "/",
-	"start_url": "/",
-	"name": "ComfySloth",
-	"short_name": "CS",
-	"description": "A web e-commerce app for furnitures",
+	"scope": "/dashboard",
+	"start_url": "/dashboard",
+	"name": "Share Swift",
+	"short_name": "A link share hub",
+	"description": "An application for seamless link sharing",
 	"icons": [
 		{
 			"'src": "images/icons/icon-192x192.png",
