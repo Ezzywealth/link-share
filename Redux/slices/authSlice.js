@@ -19,7 +19,6 @@ export const loginUser = createAsyncThunk('auth/login', async (payload, thunkApi
 			email: payload.email,
 			password: payload.password,
 		});
-		console.log(response);
 		if (response.error) {
 			// Use `rejectWithValue` to reject the promise with a specific value
 			return thunkApi.rejectWithValue(response.error);
@@ -34,7 +33,7 @@ export const loginUser = createAsyncThunk('auth/login', async (payload, thunkApi
 });
 
 export const registerUser = createAsyncThunk('auth/register', async (user) => {
-	const response = await fetch('http://localhost:3000/api/auth/register', {
+	const response = await fetch('/api/auth/register', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
