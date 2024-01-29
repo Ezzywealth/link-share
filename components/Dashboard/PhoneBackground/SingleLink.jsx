@@ -12,6 +12,7 @@ const SingleLink = ({ link }) => {
 	const [activeLinkId, setActiveLinkId] = useState(null);
 	const { updatingLink, deletingLink } = useSelector((state) => state.helper);
 	const dispatch = useDispatch();
+
 	useEffect(() => {
 		// a useEffect hook to set the link label from the displayLinks array in the utils folder
 		const label = displayLinks.find((item) => item?.value?.toLowerCase() === link?.name?.toLowerCase());
@@ -27,8 +28,6 @@ const SingleLink = ({ link }) => {
 	// handle delete link using the link id
 	const handleDeleteLink = (id) => {
 		setActiveLinkId(id);
-		console.log('delete link');
-		console.log(id);
 		dispatch(deleteLinkWithId(id));
 	};
 
