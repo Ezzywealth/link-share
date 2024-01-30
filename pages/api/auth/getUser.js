@@ -13,7 +13,6 @@ const handler = async (req, res) => {
 		});
 
 		await disconnect(); // disconnect from database
-		console.log(user);
 		if (user) {
 			res.status(200).json({
 				message: 'User found',
