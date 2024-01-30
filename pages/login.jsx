@@ -72,7 +72,7 @@ const LoginScreen = () => {
 										<PasswordIcon />
 										<input
 											disabled={loginLoading}
-											type={!showPassword ? 'text' : 'password'}
+											type={showPassword ? 'text' : 'password'}
 											id='password'
 											className='w-full focus:outline-none none bg-none'
 											{...register('password', {
@@ -80,7 +80,7 @@ const LoginScreen = () => {
 											})}
 										/>
 									</div>
-									{!showPassword ? <FaEye onClick={() => setShowPassword(true)} className='cursor-pointer' /> : <FaEyeSlash onClick={() => setShowPassword(false)} className='cursor-pointer' />}
+									{showPassword ? <FaEye onClick={() => setShowPassword(false)} className='cursor-pointer' /> : <FaEyeSlash onClick={() => setShowPassword(true)} className='cursor-pointer' />}
 								</div>
 								<p className='text-xs text-red-500'>{errors?.password && errors?.password?.message}</p>
 							</div>

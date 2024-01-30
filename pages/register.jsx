@@ -72,7 +72,7 @@ const RegisterScreen = () => {
 										<PasswordIcon color={errors?.password ? '#FF3939' : '#737373'} />
 										<input
 											disabled={registrationLoading}
-											type={!showPassword ? 'text' : 'password'}
+											type={showPassword ? 'text' : 'password'}
 											id='password'
 											className='w-full focus:outline-none bg-none'
 											{...register('password', {
@@ -84,7 +84,7 @@ const RegisterScreen = () => {
 											})}
 										/>
 									</div>
-									{!showPassword ? <FaEye color={errors?.password ? '#FF3939' : '#737373'} onClick={() => setShowPassword(true)} className='cursor-pointer' /> : <FaEyeSlash color={errors?.password ? '#FF3939' : '#737373'} onClick={() => setShowPassword(false)} className='cursor-pointer' />}
+									{showPassword ? <FaEye color={errors?.password ? '#FF3939' : '#737373'} onClick={() => setShowPassword(false)} className='cursor-pointer' /> : <FaEyeSlash color={errors?.password ? '#FF3939' : '#737373'} onClick={() => setShowPassword(true)} className='cursor-pointer' />}
 								</div>
 								<p className='text-xs text-red-500'>{errors?.password && errors?.password?.message}</p>
 							</div>
@@ -97,7 +97,7 @@ const RegisterScreen = () => {
 										<PasswordIcon color={errors?.confirmPassword ? '#FF3939' : '#737373'} />
 										<input
 											disabled={registrationLoading}
-											type={!showConfirmPassword ? 'text' : 'password'}
+											type={showConfirmPassword ? 'text' : 'password'}
 											id='confirmPassword'
 											className='w-full focus:outline-none bg-none'
 											{...register('confirmPassword', {
@@ -106,7 +106,7 @@ const RegisterScreen = () => {
 											})}
 										/>
 									</div>
-									{!showConfirmPassword ? <FaEye color={errors?.confirmPassword ? '#FF3939' : '#737373'} onClick={() => setShowConfirmPassword(true)} className='cursor-pointer' /> : <FaEyeSlash onClick={() => setShowConfirmPassword(false)} className='cursor-pointer' color={errors?.confirmPassword ? '#FF3939' : '#737373'} />}
+									{showConfirmPassword ? <FaEye color={errors?.confirmPassword ? '#FF3939' : '#737373'} onClick={() => setShowConfirmPassword(false)} className='cursor-pointer' /> : <FaEyeSlash onClick={() => setShowConfirmPassword(true)} className='cursor-pointer' color={errors?.confirmPassword ? '#FF3939' : '#737373'} />}
 								</div>
 								<p className='text-xs text-red-500'>{errors?.confirmPassword && errors?.confirmPassword?.message}</p>
 							</div>
