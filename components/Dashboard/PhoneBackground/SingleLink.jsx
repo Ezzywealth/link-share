@@ -31,8 +31,6 @@ const SingleLink = ({ link }) => {
 		dispatch(deleteLinkWithId(id));
 	};
 
-	console.log(pathname);
-
 	return (
 		<li className={`${link?.id ? `bg-[${link?.color}]` : 'bg-profile-image-bg '} px-2 text-primary-white-light font-semibold rounded-lg h-10 w-full border`} style={{ background: link?.color }}>
 			<section className='flex justify-between items-center  text-base h-full capitalize'>

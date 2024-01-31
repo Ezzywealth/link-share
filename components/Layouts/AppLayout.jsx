@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { fecthUser } from '../../Redux/slices/userSlice';
 import ChangesAlert from '../AlertModals/ChangesAlert';
 import CopylinkAlert from '../AlertModals/CopylinkAlert';
+import AddLinkModal from '../AlertModals/AddLinkModal';
 
 const AppLayout = ({ children }) => {
 	const [theme, setTheme] = useState('light');
@@ -53,6 +54,7 @@ const AppLayout = ({ children }) => {
 	return (
 		<div>
 			<ToastContainer />
+			<AddLinkModal />
 			<ChangesAlert />
 			<CopylinkAlert />
 			{children}

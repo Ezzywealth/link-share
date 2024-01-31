@@ -15,6 +15,19 @@ const useDashboardHook = () => {
 		indicatorSeparator: (base) => ({
 			display: 'none',
 		}),
+		option: (base, state) => ({
+			...base,
+			background: state.isSelected ? '#f5f5f5' : state.isDisabled ? '#EFEBFF' : 'transparent',
+			color: state.isSelected ? '#333' : state.isDisabled ? '#737373' : '#333',
+			padding: '0.5rem 1rem',
+			fontSize: '14px',
+			fontWeight: '400',
+			borderRadius: '0.5rem',
+			cursor: state.isSelected ? 'pointer' : state.isDisabled ? 'not-allowed' : 'pointer',
+			'&:hover': {
+				background: state.isSelected ? '#f5f5f5' : state.isDisabled ? '#EFEBFF' : '#f5f5f5',
+			},
+		}),
 		control: (base) => ({
 			...base,
 			border: '1px solid #d9d9d9',

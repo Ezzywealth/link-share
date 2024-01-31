@@ -4,9 +4,11 @@ import Select from 'react-select';
 import LinkIcon from '../../svgs/Nav/LinkIcon';
 import useDashboardHook from '../hooks/useDashboardHook';
 import { linksOptions } from '../../../utils/linksData';
+import { useSelector } from 'react-redux';
 
 const LinkCard = ({ i, link }) => {
 	const [selectedOption, setSelectedOption] = useState(null);
+	const { allLinks, newLinks } = useSelector((state) => state.helper);
 	const [linkAddress, setLinkAddress] = useState('');
 	const { styles, handleRemoveLink, handleActivateSave, deActivateSave, updateLinks } = useDashboardHook();
 
@@ -34,7 +36,7 @@ const LinkCard = ({ i, link }) => {
 				<label htmlFor='' className='block mb-'>
 					Platform
 				</label>
-				<Select options={linksOptions} styles={styles} onChange={setSelectedOption} />
+				<Select options={linksOptions} styles={styles} onChange={setSelectedOption} isOptionDisabled={(val) => (allLinks.find((link) => link?.name?.toLowerCase() === val?.value?.toLowerCase()) || newLinks.find((link) => link?.name?.toLowerCase() === val?.value?.toLowerCase()) ? true : false)} />
 			</div>
 			<div className='mb-3 text-dark-grey-color-light'>
 				<label htmlFor='' className='block mb-'>
