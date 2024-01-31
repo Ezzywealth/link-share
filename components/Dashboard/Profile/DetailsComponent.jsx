@@ -15,7 +15,7 @@ const DetailsComponent = ({ register, updateUserLoading, email }) => {
 			</div>
 			<div className='items-center grid md:grid-cols-12  text-primary-text-color-light gap-1  md:gap-8'>
 				<p className='w-auto col-span-4'>Email</p>
-				<input className='flex-1 col-span-8 border px-3 py-2 bg-primary-white-light rounded-md placeholder:text-xs focus:outline-none text-dark-grey-color-light focus:border-purple focus:ring-0 focus:shadow-purple focus:ring-purple' type='text' placeholder='Enter your location' disabled defaultValue={email} />
+				<input className='flex-1 col-span-8 border px-3 py-2 bg-primary-white-light rounded-md placeholder:text-xs focus:outline-none text-dark-grey-color-light focus:border-purple focus:ring-0 focus:shadow-purple focus:ring-purple' type='text' placeholder='Enter your email' disabled defaultValue={email} />
 			</div>
 		</section>
 	);

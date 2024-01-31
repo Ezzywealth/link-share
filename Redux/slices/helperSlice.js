@@ -37,7 +37,6 @@ export const saveLinksToDb = createAsyncThunk('link/createLink', async (links, t
 export const fetchLinksFromDb = createAsyncThunk('link/fetchLinks', async (links, thunkApi) => {
 	const { user } = thunkApi.getState().user;
 	const { data } = await axios.post(`/api/auth/getLinks`, { user });
-	console.log(data);
 	return data;
 });
 
@@ -62,7 +61,6 @@ export const helperSlice = createSlice({
 			state.newLinks.unshift(obj);
 		},
 		removeLink: (state, action) => {
-			console.log(action.payload);
 			state.noOfLinks -= 1;
 			state.newLinks = state.newLinks.filter((link) => link.id !== action.payload);
 		},
@@ -87,6 +85,12 @@ export const helperSlice = createSlice({
 		toggleUpdateLink: (state, action) => {
 			state.updatingLink = action.payload;
 		},
+		toggleAddLinkModal: (state, action) => {
+			if (state.showAddLinkModal) {
+				state.showAddLinkModal = false;
+			}
+			state.showAddLinkModal = action.payload;
+		},
 	},
 	extraReducers: (builders) => {
 		builders.addCase(saveLinksToDb.pending, (state, action) => {
@@ -99,7 +103,7 @@ export const helperSlice = createSlice({
 			state.allLinks = [...action.payload.data, ...state.allLinks];
 			state.activateSaveBtn = false;
 			state.showAddLinkModal = true;
-			state.saveLinksMessage = `link${action.payload.data.length > 1 ? 's' : ''} saved successfully`;
+			state.saveLinksMessage = `Your social link${action.payload.data.length > 1 ? 's' : ''} was saved successfully`;
 		});
 		builders.addCase(saveLinksToDb.rejected, (state, action) => {
 			state.saveLinksLoading = false;
@@ -135,5 +139,5 @@ export const helperSlice = createSlice({
 	},
 });
 
-export const { toggleTheme, increaseLinks, removeLink, toggleActivateSaveBtn, saveLinks, updateLink, toggleUpdateLink } = helperSlice.actions;
+export const { toggleTheme, increaseLinks, removeLink, toggleActivateSaveBtn, saveLinks, updateLink, toggleUpdateLink, toggleAddLinkModal } = helperSlice.actions;
 export default helperSlice.reducer;
