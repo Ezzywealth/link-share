@@ -2,21 +2,15 @@ import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import LinksContainer from './LinksContainer';
 import { useSelector } from 'react-redux';
-import useDashboardHook from '../hooks/useDashboardHook';
+
 
 const PhoneContent = () => {
 	const { user, userLoading } = useSelector((state) => state.user);
-	const { fetchLinks } = useDashboardHook();
 	const [loadingImage, setLoadingImage] = useState(true);
 
 	// construct the fullname from the user firstname and lastname
 	const fullName = `${user?.firstName ? user?.firstName : ''} ${user?.lastName ? user?.lastName : ''}`;
 
-	useEffect(() => {
-		if (user?.id) {
-			fetchLinks();
-		}
-	}, [user]);
 
 	return (
 		<div className='absolute top-0 left-0 right-0 bg-primary-white-light z-50 flex justify-center items-center h-full w-full '>
