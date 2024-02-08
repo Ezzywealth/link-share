@@ -14,7 +14,7 @@ const Preview = () => {
 					<PreviewNav />
 				</div>
 				<section className='w-full  md:absolute h-auto  flex box-border  md:top-1/2 justify-center'>
-					<section className='w-[300px] mt-10 md:mt-4  bg-primary-white-light '>
+					<section className='w-[300px] mt-10 md:mt-4 rounded-lg bg-primary-white-light '>
 						<ProfileDisplay />
 					</section>
 				</section>
