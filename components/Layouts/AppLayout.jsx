@@ -17,7 +17,7 @@ const AppLayout = ({ children }) => {
 
 	useEffect(() => {
 		if (session?.user?.email && !user) {
-			dispatch(fecthUser(session?.user.email));
+			dispatch(fecthUser());
 		}
 	}, [session?.user, user]);
 

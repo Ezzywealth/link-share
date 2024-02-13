@@ -1,35 +1,48 @@
-import { getSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth';
 import User from '../../../Models/User';
 import { dbConnect, disconnect } from '../../../lib/mongodb';
+import { authOptions } from './[...nextauth]';
 
 const handler = async (req, res) => {
 	if (req.method === 'POST') {
-		const session = getSession(req);
-		const { email } = req.body;
-		console.log(session);
+		const session = await getServerSession(req, res, authOptions);
+		if (!session) {
+			// If session is null, user is not authenticated
+			return res.status(401).json({
+				message: 'Unauthorized access',
+			});
+		}
 
-		// connect to mongodb database
+		// Connect to mongodb database
 		await dbConnect();
 
-		const user = await User.find(session?.user?.id);
+		try {
+			// Use findById to find the user by _id
+			const user = await User.findById(session.user.id);
 
-		await disconnect(); // disconnect from database
-		if (user) {
-			res.status(200).json({
-				message: 'User found',
-				data: {
-					id: user._id,
-					email: user.email,
-					firstName: user.firstName,
-					lastName: user.lastName,
-					image: user.image,
-				},
+			if (user) {
+				res.status(200).json({
+					message: 'User found',
+					data: {
+						id: user._id,
+						email: user.email,
+						firstName: user.firstName,
+						lastName: user.lastName,
+						image: user.image,
+					},
+				});
+			} else {
+				res.status(404).json({
+					message: 'User not found',
+				});
+			}
+		} catch (error) {
+			res.status(500).json({
+				message: 'Internal Server Error',
 			});
-		} else {
-			// if no user is found or password does not match, throw error
-			res.status(400).json({
-				message: 'User with this email not found',
-			});
+		} finally {
+			// Disconnect from the database
+			await disconnect();
 		}
 	} else {
 		res.status(400).json({
@@ -37,4 +50,5 @@ const handler = async (req, res) => {
 		});
 	}
 };
+
 export default handler;

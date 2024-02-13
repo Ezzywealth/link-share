@@ -18,19 +18,14 @@ const initialState = {
 	deleteLinkError: null,
 };
 
-export const deleteLinkWithId = createAsyncThunk('link/deleteLink', async (id, thunkApi) => {
-	const { user } = thunkApi.getState().user;
-	const { data } = await axios.post(`/api/auth/deleteLink`, { id, user });
+export const deleteLinkWithId = createAsyncThunk('link/deleteLink', async (id) => {
+	const { data } = await axios.post(`/api/auth/deleteLink`, { id });
 	return data;
 });
 
 // a function to save the links to the database
-export const saveLinksToDb = createAsyncThunk('link/createLink', async (links, thunkApi) => {
-	const { user } = thunkApi.getState().user;
-	const newLinks = links.map((link) => {
-		return { ...link, user: user.id };
-	});
-	const { data } = await axios.post(`/api/auth/saveLink`, { newLinks });
+export const saveLinksToDb = createAsyncThunk('link/createLink', async (links) => {
+	const { data } = await axios.post(`/api/auth/saveLink`, { links });
 	return data;
 });
 
@@ -47,17 +42,18 @@ export const helperSlice = createSlice({
 		toggleTheme: (state, action) => {
 			state.theme = action.payload;
 		},
-		increaseLinks: (state) => {
+		increaseLinks: (state, action) => {
 			if (state.newLinks.length === 2) {
 				return;
 			}
 			const obj = {
-				id: state.newLinks.length + 1,
+				user: action.payload,
 				name: '',
 				value: '',
 				color: '',
 				address: '',
 			};
+			console.log(obj);
 			state.newLinks.unshift(obj);
 		},
 		removeLink: (state, action) => {

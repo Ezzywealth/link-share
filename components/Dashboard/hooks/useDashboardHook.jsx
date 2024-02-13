@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLinksFromDb, increaseLinks, removeLink, saveLinks, saveLinksToDb, toggleActivateSaveBtn, updateLink } from '../../../Redux/slices/helperSlice';
+import { useSession } from 'next-auth/react';
 
 const useDashboardHook = () => {
+	const { data: session } = useSession();
 	const dispatch = useDispatch();
 	const [activateSave, setActivateSave] = useState(false);
 	const { noOfLinks, activateSaveBtn, newLinks, saveLinksLoading } = useSelector((state) => state.helper);
@@ -45,7 +47,7 @@ const useDashboardHook = () => {
 	};
 
 	const handleAddNewLink = () => {
-		dispatch(increaseLinks());
+		dispatch(increaseLinks(session.user.id));
 	};
 
 	const handleRemoveLink = (id) => {

@@ -21,13 +21,12 @@ export const updateUser = createAsyncThunk('user/updateUser', async (user) => {
 	return data;
 });
 
-export const fecthUser = createAsyncThunk('user/fetchUser', async (email) => {
+export const fecthUser = createAsyncThunk('user/fetchUser', async () => {
 	const response = await fetch('/api/auth/getUser', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify({ email }),
 	});
 	const data = await response.json();
 	return data;

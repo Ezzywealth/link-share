@@ -1,17 +1,7 @@
 import User from '../../../Models/User';
 import { dbConnect, disconnect } from '../../../lib/mongodb';
-import path from 'path';
-import DatauriParser from 'datauri/parser';
-import { uploadFile } from '../../../utils/cloudinaryUploadHook';
-const cloudinary = require('cloudinary').v2;
-
-// Return "https" URLs by setting secure: true
-cloudinary.config({
-	secure: true,
-});
 
 const handler = async (req, res) => {
-	console.log(req.body);
 	if (req.method === 'PUT') {
 		const { firstName, lastName, image, email } = req.body;
 
