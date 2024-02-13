@@ -1,16 +1,17 @@
+import { getSession } from 'next-auth/react';
 import User from '../../../Models/User';
 import { dbConnect, disconnect } from '../../../lib/mongodb';
 
 const handler = async (req, res) => {
 	if (req.method === 'POST') {
+		const session = getSession(req);
 		const { email } = req.body;
+		console.log(session);
 
 		// connect to mongodb database
 		await dbConnect();
 
-		const user = await User.findOne({
-			email: email,
-		});
+		const user = await User.find(session?.user?.id);
 
 		await disconnect(); // disconnect from database
 		if (user) {

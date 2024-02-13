@@ -6,11 +6,14 @@ import ProfilePage from '../../components/Dashboard/Profile/ProfilePage';
 import PhoneContent from '../../components/Dashboard/PhoneBackground/PhoneContent';
 import Phonebg from '../../components/svgs/Dashboard/Phonebg';
 import Head from 'next/head';
+import { useSession } from 'next-auth/react';
 
 const Dashboard = () => {
 	const params = useSearchParams();
 	const page = params.get('page');
+	const { data: session } = useSession();
 
+	console.log(session);
 	return (
 		<DashboardLayout>
 			<Head>

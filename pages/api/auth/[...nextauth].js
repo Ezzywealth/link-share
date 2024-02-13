@@ -3,40 +3,47 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { dbConnect, disconnect } from '../../../lib/mongodb';
 import User from '../../../Models/User';
 import bcryptjs from 'bcryptjs';
+import { MdSignalCellularNull } from 'react-icons/md';
 
 export const authOptions = {
 	// Configure one or more authentication providers
 	providers: [
 		CredentialsProvider({
 			name: 'Credentials',
-			credentials: {
-				username: { label: 'Username', type: 'text', placeholder: 'jsmith' },
-				password: { label: 'Password', type: 'password' },
-			},
 			async authorize(credentials) {
 				// connect to mongodb database
 				await dbConnect();
 				// find user by email
-				const user = await User.findOne({
+				let user = await User.findOne({
 					email: credentials.email,
 				});
 				// disconnect from database
 				await disconnect();
-				// if user is found and password matches, return user object
-				if (user && bcryptjs.compareSync(credentials.password, user.password)) {
-					return {
-						_id: user._id,
-						email: user.email,
-					};
+				if (!user) {
+					// if user with email is not found
+					throw new Error('User not found');
+				} else if (user && bcryptjs.compareSync(credentials.password, user.password)) {
+					// if user is found and password matches, return user object
+					user = { id: user._id.toString(), email: user.email };
+					return user;
+				} else {
+					// if user is found and password is not correct
+					throw new Error('Invalid password, Try Again!!!');
 				}
-				// if no user is found or password does not match, throw error
-				throw new Error('Invalid email and password, Try Again!!!');
 			},
 		}),
 	],
+	callbacks: {
+		async session({ session, token, user }) {
+			// Send properties to the client, like an access_token and user id from a provider.
+			session.user.id = token?.sub;
+			session.user.email = token.email;
+			return session;
+		},
+	},
 	session: {
 		strategy: 'jwt',
-		maxAge: 3 * 24 * 60 * 60, // 3 days
+		maxAge: 30 * 24 * 60 * 60, // 3 days
 	},
 	pages: {
 		signIn: '/login',

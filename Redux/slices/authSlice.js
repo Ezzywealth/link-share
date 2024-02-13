@@ -60,10 +60,11 @@ export const authSlice = createSlice({
 			window.location.href = '/dashboard?page=links';
 		});
 		builder.addCase(loginUser.rejected, (state, action) => {
+			console.log(action.payload);
 			state.loginLoading = false;
 			state.isAuth = false;
 			state.user = {};
-			toast.error('Login failed, please try again');
+			toast.error(action.payload);
 		});
 		builder.addCase(registerUser.pending, (state) => {
 			state.registrationLoading = true;
