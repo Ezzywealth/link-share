@@ -1,11 +1,11 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SingleLink from './SingleLink';
 import useDashboardHook from '../hooks/useDashboardHook';
 
 const LinksContainer = () => {
 	const { allLinks, fetchLinksLoading } = useSelector((state) => state.helper);
-	const { userLoading ,user} = useSelector((state) => state.user);
+	const { userLoading, user } = useSelector((state) => state.user);
 	const { fetchLinks } = useDashboardHook();
 
 	// an effect to fetch the users social link when there is a user or the user changes

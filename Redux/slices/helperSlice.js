@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 
 const initialState = {
 	theme: 'light',
@@ -122,13 +122,12 @@ export const helperSlice = createSlice({
 			state.deletingLink = true;
 		});
 		builders.addCase(deleteLinkWithId.fulfilled, (state, action) => {
-			console.log(action.payload);
 			state.deletingLink = false;
 			state.deleteLinkError = null;
 			state.allLinks = state.allLinks.filter((link) => link._id !== action.payload.data);
+			toast.success('link successfully deleted')
 		});
 		builders.addCase(deleteLinkWithId.rejected, (state, action) => {
-			console.log(action.payload);
 			state.deletingLink = false;
 			state.deleteLinkError = action.payload?.message;
 		});

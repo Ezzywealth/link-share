@@ -8,6 +8,7 @@ import { fecthUser } from '../../Redux/slices/userSlice';
 import ChangesAlert from '../AlertModals/ChangesAlert';
 import CopylinkAlert from '../AlertModals/CopylinkAlert';
 import AddLinkModal from '../AlertModals/AddLinkModal';
+import { Toaster } from 'react-hot-toast';
 
 const AppLayout = ({ children }) => {
 	const [theme, setTheme] = useState('light');
@@ -53,7 +54,8 @@ const AppLayout = ({ children }) => {
 	// };
 	return (
 		<div>
-			<ToastContainer />
+			{/* <ToastContainer /> */}
+			<Toaster />
 			<AddLinkModal />
 			<ChangesAlert />
 			<CopylinkAlert />

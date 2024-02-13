@@ -15,7 +15,7 @@ const handler = async (req, res) => {
 		await dbConnect();
 		try {
 			await Links.deleteOne({ _id: id });
-			console.log('response', resp);
+
 			res.status(200).json({ message: 'Link deleted successfully', data: id });
 		} catch (error) {
 			res.status(500).json({ message: error.message });

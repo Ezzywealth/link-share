@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { signIn } from 'next-auth/react';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 
 const initialState = {
 	isAuth: false,

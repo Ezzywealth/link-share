@@ -21,14 +21,14 @@ export const authOptions = {
 				await disconnect();
 				if (!user) {
 					// if user with email is not found
-					throw new Error('User not found');
+					throw new Error('Incorrect email, user not found');
 				} else if (user && bcryptjs.compareSync(credentials.password, user.password)) {
 					// if user is found and password matches, return user object
 					user = { id: user._id.toString(), email: user.email };
 					return user;
 				} else {
 					// if user is found and password is not correct
-					throw new Error('Invalid password, Try Again!!!');
+					throw new Error('Incorrect password, Try Again!!!');
 				}
 			},
 		}),
